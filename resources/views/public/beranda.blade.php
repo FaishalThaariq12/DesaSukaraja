@@ -7,6 +7,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Website Resmi Desa Sukaraja, Rawamerta, Karawang</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Swiper.js for slider -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -149,54 +152,30 @@
       <div class="container mx-auto px-6">
         <div class="text-center mb-12">
           <h2 class="text-3xl md:text-4xl font-bold text-slate-800">Berita & Informasi Desa</h2>
-          <p class="text-lg mt-2 text-slate-600">Ikuti perkembangan dan kegiatan terbaru dari Desa Sukaraja.
-          </p>
+          <p class="text-lg mt-2 text-slate-600">Ikuti perkembangan dan kegiatan terbaru dari Desa Sukaraja.</p>
         </div>
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <!-- Berita Card 1 -->
-          <div
-            class="bg-white rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300 group">
-            <img src="https://placehold.co/600x400/60a5fa/ffffff?text=Gotong+Royong"
-              class="w-full h-48 object-cover" alt="Kegiatan Gotong Royong">
-            <div class="p-6">
-              <span class="text-sm text-slate-500">18 September 2025</span>
-              <h3 class="text-xl font-bold my-2 text-slate-800 group-hover:text-emerald-600 transition">
-                Warga Antusias Laksanakan Kerja Bakti Membersihkan Saluran Irigasi</h3>
-              <p class="text-slate-600 mb-4 text-sm leading-relaxed">Kegiatan ini bertujuan untuk mencegah
-                banjir saat musim hujan tiba dan menjaga kebersihan lingkungan desa.</p>
-              <a href="#" class="font-semibold text-emerald-500 text-sm hover:text-emerald-700">Baca
-                Selengkapnya &rarr;</a>
+        <div class="relative">
+          <div class="swiper berita-swiper pb-12">
+            <div class="swiper-wrapper">
+              @foreach($beritas as $berita)
+              <div class="swiper-slide">
+                <div class="bg-white border border-slate-200 rounded-xl shadow-lg overflow-hidden flex flex-col h-full group transition-transform duration-300 hover:-translate-y-1">
+                  <img src="{{ $berita->gambar ? asset('storage/' . $berita->gambar) : 'https://placehold.co/600x400/60a5fa/ffffff?text=Berita' }}" class="w-full max-h-48 h-48 object-cover rounded-t-xl" alt="{{ $berita->judul }}">
+                  <div class="p-6 flex-1 flex flex-col justify-between">
+                    <div>
+                      <span class="text-xs font-semibold text-emerald-600 bg-emerald-100 px-2 py-1 rounded-full">{{ $berita->created_at->format('d M Y') }}</span>
+                      <h3 class="text-lg md:text-xl font-bold my-2 text-slate-800 group-hover:text-emerald-600 transition">{{ $berita->judul }}</h3>
+                      <p class="text-slate-600 mb-4 text-sm leading-relaxed">{{ \Illuminate\Support\Str::limit($berita->isi, 100) }}</p>
+                    </div>
+                    <a href="{{ route('berita.detail', $berita->slug) }}" class="font-semibold text-emerald-500 text-sm hover:text-emerald-700 mt-auto">Baca Selengkapnya &rarr;</a>
+                  </div>
+                </div>
+              </div>
+              @endforeach
             </div>
-          </div>
-          <!-- Berita Card 2 -->
-          <div
-            class="bg-white rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300 group">
-            <img src="https://placehold.co/600x400/fbbf24/ffffff?text=Penyuluhan+UMKM"
-              class="w-full h-48 object-cover" alt="Penyuluhan UMKM">
-            <div class="p-6">
-              <span class="text-sm text-slate-500">15 September 2025</span>
-              <h3 class="text-xl font-bold my-2 text-slate-800 group-hover:text-emerald-600 transition">
-                Pemerintah Desa Adakan Pelatihan Digital Marketing untuk Pelaku UMKM</h3>
-              <p class="text-slate-600 mb-4 text-sm leading-relaxed">Pelatihan ini diharapkan dapat
-                membantu para pelaku usaha mikro untuk memperluas pasar produk mereka.</p>
-              <a href="#" class="font-semibold text-emerald-500 text-sm hover:text-emerald-700">Baca
-                Selengkapnya &rarr;</a>
-            </div>
-          </div>
-          <!-- Berita Card 3 -->
-          <div
-            class="bg-white rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300 group">
-            <img src="https://placehold.co/600x400/f87171/ffffff?text=Posyandu+Balita"
-              class="w-full h-48 object-cover" alt="Kegiatan Posyandu">
-            <div class="p-6">
-              <span class="text-sm text-slate-500">12 September 2025</span>
-              <h3 class="text-xl font-bold my-2 text-slate-800 group-hover:text-emerald-600 transition">
-                Posyandu Melati Sukses Gelar Imunisasi dan Pemberian Vitamin A</h3>
-              <p class="text-slate-600 mb-4 text-sm leading-relaxed">Program ini merupakan upaya
-                pemerintah desa dalam menjaga kesehatan dan gizi anak-anak di Desa Sukaraja.</p>
-              <a href="#" class="font-semibold text-emerald-500 text-sm hover:text-emerald-700">Baca
-                Selengkapnya &rarr;</a>
-            </div>
+            <div class="swiper-pagination"></div>
+            <div class="swiper-button-next !bg-white !shadow-lg !rounded-full !w-10 !h-10 !flex !items-center !justify-center !text-emerald-600 !border !border-slate-200"></div>
+            <div class="swiper-button-prev !bg-white !shadow-lg !rounded-full !w-10 !h-10 !flex !items-center !justify-center !text-emerald-600 !border !border-slate-200"></div>
           </div>
         </div>
       </div>
@@ -210,54 +189,15 @@
           <p class="text-lg mt-2 text-slate-600">Momen dan keindahan yang terekam di Desa Sukaraja.</p>
         </div>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          @foreach($galeris as $galeri)
           <div class="gallery-img group relative overflow-hidden rounded-lg shadow-md">
-            <img src="https://placehold.co/500x500/818cf8/ffffff?text=Upacara+Adat"
-              class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
-            <div
-              class="overlay absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              <p class="text-white font-bold text-lg">Upacara Adat</p>
+            <img src="{{ $galeri->gambar ?? 'https://placehold.co/500x500/818cf8/ffffff?text=Galeri' }}" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500" alt="{{ $galeri->judul }}">
+            <img src="{{ $galeri->gambar ? asset('storage/' . $galeri->gambar) : 'https://placehold.co/500x500/818cf8/ffffff?text=Galeri' }}" class="w-full max-h-56 object-cover rounded-lg transform group-hover:scale-110 transition-transform duration-500" alt="{{ $galeri->judul }}">
+            <div class="overlay absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <p class="text-white font-bold text-lg">{{ $galeri->judul }}</p>
             </div>
           </div>
-          <div class="gallery-img group relative overflow-hidden rounded-lg shadow-md col-span-2">
-            <img src="https://placehold.co/1000x500/a78bfa/ffffff?text=Hamparan+Sawah"
-              class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
-            <div
-              class="overlay absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              <p class="text-white font-bold text-lg">Hamparan Sawah</p>
-            </div>
-          </div>
-          <div class="gallery-img group relative overflow-hidden rounded-lg shadow-md">
-            <img src="https://placehold.co/500x500/f472b6/ffffff?text=Anak-Anak+Bermain"
-              class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
-            <div
-              class="overlay absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              <p class="text-white font-bold text-lg">Anak-Anak Bermain</p>
-            </div>
-          </div>
-          <div class="gallery-img group relative overflow-hidden rounded-lg shadow-md col-span-2">
-            <img src="https://placehold.co/1000x500/fb923c/ffffff?text=Pasar+Desa"
-              class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
-            <div
-              class="overlay absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              <p class="text-white font-bold text-lg">Pasar Desa</p>
-            </div>
-          </div>
-          <div class="gallery-img group relative overflow-hidden rounded-lg shadow-md">
-            <img src="https://placehold.co/500x500/22d3ee/ffffff?text=Sungai"
-              class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
-            <div
-              class="overlay absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              <p class="text-white font-bold text-lg">Sungai Desa</p>
-            </div>
-          </div>
-          <div class="gallery-img group relative overflow-hidden rounded-lg shadow-md">
-            <img src="https://placehold.co/500x500/34d399/ffffff?text=Produk+Lokal"
-              class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
-            <div
-              class="overlay absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              <p class="text-white font-bold text-lg">Produk Lokal</p>
-            </div>
-          </div>
+          @endforeach
         </div>
       </div>
     </section>
@@ -270,47 +210,19 @@
           <p class="text-lg mt-2 text-slate-600">Temukan pesona tersembunyi di desa kami.</p>
         </div>
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <!-- Wisata Card 1 -->
+          @foreach($wisatas as $wisata)
           <div class="bg-white rounded-xl shadow-lg overflow-hidden group">
             <div class="relative">
-              <img src="https://placehold.co/600x400/38bdf8/ffffff?text=Agrowisata+Sawah"
-                class="w-full h-56 object-cover" alt="Agrowisata Sawah">
+              <img src="{{ $wisata->gambar ?? 'https://placehold.co/600x400/38bdf8/ffffff?text=Wisata' }}" class="w-full h-56 object-cover" alt="{{ $wisata->nama }}">
+              <img src="{{ $wisata->gambar ? asset('storage/' . $wisata->gambar) : 'https://placehold.co/600x400/38bdf8/ffffff?text=Wisata' }}" class="w-full max-h-56 h-56 object-cover rounded-lg" alt="{{ $wisata->nama }}">
               <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-              <h3 class="absolute bottom-4 left-4 text-2xl font-bold text-white">Agrowisata Sawah Lestari
-              </h3>
+              <h3 class="absolute bottom-4 left-4 text-2xl font-bold text-white">{{ $wisata->nama }}</h3>
             </div>
             <div class="p-6">
-              <p class="text-slate-600 mb-4">Nikmati pemandangan sawah yang hijau membentang sambil
-                belajar tentang proses tanam padi secara tradisional.</p>
+              <p class="text-slate-600 mb-4">{{ \Illuminate\Support\Str::limit($wisata->deskripsi, 100) }}</p>
             </div>
           </div>
-          <!-- Wisata Card 2 -->
-          <div class="bg-white rounded-xl shadow-lg overflow-hidden group">
-            <div class="relative">
-              <img src="https://placehold.co/600x400/c084fc/ffffff?text=Pemandian+Alami"
-                class="w-full h-56 object-cover" alt="Pemandian Alami">
-              <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-              <h3 class="absolute bottom-4 left-4 text-2xl font-bold text-white">Pemandian Mata Air Alami
-              </h3>
-            </div>
-            <div class="p-6">
-              <p class="text-slate-600 mb-4">Rasakan kesegaran air langsung dari mata air pegunungan di
-                pemandian alami yang dikelola oleh warga desa.</p>
-            </div>
-          </div>
-          <!-- Wisata Card 3 -->
-          <div class="bg-white rounded-xl shadow-lg overflow-hidden group">
-            <div class="relative">
-              <img src="https://placehold.co/600x400/fb923c/ffffff?text=Kampung+Kuliner"
-                class="w-full h-56 object-cover" alt="Kampung Kuliner">
-              <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-              <h3 class="absolute bottom-4 left-4 text-2xl font-bold text-white">Kampung Kuliner Khas</h3>
-            </div>
-            <div class="p-6">
-              <p class="text-slate-600 mb-4">Cicipi aneka hidangan tradisional khas Karawang yang lezat,
-                dimasak langsung oleh ibu-ibu warga desa.</p>
-            </div>
-          </div>
+          @endforeach
         </div>
       </div>
     </section>
@@ -323,38 +235,14 @@
           <p class="text-lg mt-2 text-slate-600">Pemerintahan Desa Sukaraja Periode 2024-2029</p>
         </div>
         <div class="flex flex-col items-center">
-          <!-- Kepala Desa -->
+          @foreach($sotks as $sotk)
           <div class="text-center mb-8">
-            <img src="https://placehold.co/128x128/94a3b8/ffffff?text=Foto" alt="Kepala Desa"
-              class="w-32 h-32 rounded-full mx-auto shadow-lg border-4 border-emerald-400">
-            <h3 class="text-xl font-bold mt-4 text-slate-800">H. Asep Suryana</h3>
-            <p class="text-emerald-600 font-semibold">Kepala Desa</p>
+            <img src="{{ $sotk->foto ?? 'https://placehold.co/128x128/94a3b8/ffffff?text=Foto' }}" alt="{{ $sotk->nama }}" class="w-32 h-32 rounded-full mx-auto shadow-lg border-4 border-emerald-400">
+            <img src="{{ $sotk->foto ? asset('storage/' . $sotk->foto) : 'https://placehold.co/128x128/94a3b8/ffffff?text=Foto' }}" alt="{{ $sotk->nama }}" class="w-32 h-32 object-cover rounded-full mx-auto shadow-lg border-4 border-emerald-400">
+            <h3 class="text-xl font-bold mt-4 text-slate-800">{{ $sotk->nama }}</h3>
+            <p class="text-emerald-600 font-semibold">{{ $sotk->jabatan }}</p>
           </div>
-
-          <!-- Garis Vertikal -->
-          <div class="w-1 h-12 bg-slate-300"></div>
-
-          <!-- Perangkat Desa -->
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-x-20 gap-y-10 mt-8 text-center">
-            <div class="flex flex-col items-center">
-              <img src="https://placehold.co/96x96/94a3b8/ffffff?text=Foto" alt="Sekretaris Desa"
-                class="w-24 h-24 rounded-full mx-auto shadow-md border-2 border-slate-300">
-              <h4 class="text-lg font-bold mt-3 text-slate-800">Budi Santoso</h4>
-              <p class="text-slate-500">Sekretaris Desa</p>
-            </div>
-            <div class="flex flex-col items-center">
-              <img src="https://placehold.co/96x96/94a3b8/ffffff?text=Foto" alt="Kaur Keuangan"
-                class="w-24 h-24 rounded-full mx-auto shadow-md border-2 border-slate-300">
-              <h4 class="text-lg font-bold mt-3 text-slate-800">Siti Aminah</h4>
-              <p class="text-slate-500">Kaur Keuangan</p>
-            </div>
-            <div class="flex flex-col items-center">
-              <img src="https://placehold.co/96x96/94a3b8/ffffff?text=Foto" alt="Kaur Perencanaan"
-                class="w-24 h-24 rounded-full mx-auto shadow-md border-2 border-slate-300">
-              <h4 class="text-lg font-bold mt-3 text-slate-800">Joko Widodo</h4>
-              <p class="text-slate-500">Kaur Perencanaan</p>
-            </div>
-          </div>
+          @endforeach
         </div>
       </div>
     </section>
@@ -376,7 +264,8 @@
         <!-- Pengaduan -->
         <div id="pengaduan" class="lg:col-span-2 bg-white p-8 rounded-xl shadow-2xl">
           <h2 class="text-3xl font-bold text-slate-800 mb-1">Layanan Pengaduan</h2>
-          <p class="text-slate-500 mb-6">Punya keluhan atau masukan? Sampaikan kepada kami.</p>
+          <p class="text-slate-500 mb-2">Punya keluhan atau masukan? Sampaikan kepada kami.</p>
+          <p class="text-slate-600 mb-6">Total pengaduan masuk: <span class="font-bold text-emerald-600">{{ $pengaduanCount }}</span></p>
           <form action="#" method="POST">
             <div class="mb-4">
               <label for="nama" class="block text-sm font-medium text-slate-700 mb-1">Nama Lengkap</label>
@@ -451,6 +340,31 @@
   <script>
     // Initialize Lucide Icons
     lucide.createIcons();
+
+    // Swiper slider for berita
+    document.addEventListener('DOMContentLoaded', function() {
+      new Swiper('.berita-swiper', {
+        slidesPerView: 1,
+        spaceBetween: 24,
+        loop: true,
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev',
+        },
+        pagination: {
+          el: '.swiper-pagination',
+          clickable: true,
+        },
+        breakpoints: {
+          768: {
+            slidesPerView: 2
+          },
+          1024: {
+            slidesPerView: 3
+          }
+        }
+      });
+    });
 
     // Mobile Menu Toggle
     const mobileMenuButton = document.getElementById('mobile-menu-button');

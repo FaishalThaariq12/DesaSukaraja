@@ -61,9 +61,10 @@ Route::prefix('admin')->group(function () {
     })->name('admin.logout');
 
     Route::get('dashboard', [App\Http\Controllers\AdminController::class, 'dashboard'])->name('admin.dashboard');
-    Route::resource('berita', BeritaController::class)->names('admin.berita');
+    Route::resource('berita', BeritaController::class)->except(['show'])->names('admin.berita');
     Route::resource('galeri', AdminGaleriController::class)->names('admin.galeri');
     Route::resource('wisata', AdminWisataController::class)->names('admin.wisata');
     Route::resource('sotk', AdminSotkController::class)->names('admin.sotk');
     Route::resource('pengaduan', AdminPengaduanController::class)->names('admin.pengaduan');
+    Route::get('/berita/{slug}', [App\Http\Controllers\HomeController::class, 'beritaDetail'])->name('berita.detail');
 }); // Ini adalah penutup untuk Route::prefix('admin')->group

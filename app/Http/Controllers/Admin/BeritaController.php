@@ -25,13 +25,18 @@ class BeritaController extends Controller
     $request->validate([
       'judul' => 'required',
       'isi' => 'required',
+      'gambar' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
     ]);
     $slug = Str::slug($request->judul);
+    $gambarPath = null;
+    if ($request->hasFile('gambar')) {
+      $gambarPath = $request->file('gambar')->store('berita', 'public');
+    }
     Berita::create([
       'judul' => $request->judul,
       'slug' => $slug,
       'isi' => $request->isi,
-      'gambar' => $request->gambar ?? null,
+      'gambar' => $gambarPath,
     ]);
     return redirect()->route('admin.berita.index')->with('success', 'Berita berhasil ditambahkan');
   }

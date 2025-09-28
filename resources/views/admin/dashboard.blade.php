@@ -1,16 +1,3 @@
-@php
-use App\Models\Berita;
-use App\Models\Galeri;
-use App\Models\Wisata;
-use App\Models\Sotk;
-use App\Models\Pengaduan;
-use App\Models\User;
-$totalPenduduk = User::count();
-$totalBerita = Berita::count();
-$totalPengaduan = Pengaduan::count();
-$totalWisata = Wisata::count();
-$pengaduanTerbaru = Pengaduan::orderBy('created_at', 'desc')->take(3)->get();
-@endphp
 <!DOCTYPE html>
 <html lang="id">
 
@@ -54,34 +41,34 @@ $pengaduanTerbaru = Pengaduan::orderBy('created_at', 'desc')->take(3)->get();
 <body class="antialiased text-slate-600">
   <div class="flex h-screen bg-slate-100">
     <!-- Sidebar -->
-    <!-- [FIX 1] Added classes for mobile overlay behavior -->
     <aside id="sidebar"
       class="w-64 bg-white shadow-lg flex flex-col fixed inset-y-0 left-0 transform -translate-x-full md:relative md:translate-x-0 transition-transform duration-300 ease-in-out z-30">
       <div class="flex items-center justify-center h-20 border-b">
-        <a href="#" class="flex items-center space-x-2">
+        <a href="{{ route('admin.dashboard') }}" class="flex items-center space-x-2">
           <img src="https://placehold.co/40x40/10b981/ffffff?text=DS" alt="Logo Desa Sukaraja"
             class="rounded-full">
           <span class="text-xl font-bold text-slate-800">Admin Sukaraja</span>
         </a>
       </div>
       <nav class="flex-1 px-4 py-6 space-y-2">
+        {{-- [FIX] Logic for active sidebar menu --}}
         <a href="{{ route('admin.dashboard') }}"
-          class="flex items-center px-4 py-2 text-white bg-emerald-500 rounded-lg"><i
+          class="flex items-center px-4 py-2 rounded-lg {{ request()->routeIs('admin.dashboard') ? 'bg-emerald-500 text-white' : 'text-slate-700 hover:bg-slate-200' }} transition-colors"><i
             data-lucide="layout-dashboard" class="w-5 h-5 mr-3"></i>Dashboard</a>
         <a href="{{ route('admin.berita.index') }}"
-          class="flex items-center px-4 py-2 text-slate-700 hover:bg-slate-200 rounded-lg transition-colors"><i
+          class="flex items-center px-4 py-2 rounded-lg {{ request()->routeIs('admin.berita.*') ? 'bg-emerald-500 text-white' : 'text-slate-700 hover:bg-slate-200' }} transition-colors"><i
             data-lucide="newspaper" class="w-5 h-5 mr-3"></i>Berita</a>
         <a href="{{ route('admin.galeri.index') }}"
-          class="flex items-center px-4 py-2 text-slate-700 hover:bg-slate-200 rounded-lg transition-colors"><i
+          class="flex items-center px-4 py-2 rounded-lg {{ request()->routeIs('admin.galeri.*') ? 'bg-emerald-500 text-white' : 'text-slate-700 hover:bg-slate-200' }} transition-colors"><i
             data-lucide="image" class="w-5 h-5 mr-3"></i>Galeri</a>
         <a href="{{ route('admin.wisata.index') }}"
-          class="flex items-center px-4 py-2 text-slate-700 hover:bg-slate-200 rounded-lg transition-colors"><i
+          class="flex items-center px-4 py-2 rounded-lg {{ request()->routeIs('admin.wisata.*') ? 'bg-emerald-500 text-white' : 'text-slate-700 hover:bg-slate-200' }} transition-colors"><i
             data-lucide="map" class="w-5 h-5 mr-3"></i>Wisata</a>
         <a href="{{ route('admin.sotk.index') }}"
-          class="flex items-center px-4 py-2 text-slate-700 hover:bg-slate-200 rounded-lg transition-colors"><i
+          class="flex items-center px-4 py-2 rounded-lg {{ request()->routeIs('admin.sotk.*') ? 'bg-emerald-500 text-white' : 'text-slate-700 hover:bg-slate-200' }} transition-colors"><i
             data-lucide="users" class="w-5 h-5 mr-3"></i>SOTK</a>
         <a href="{{ route('admin.pengaduan.index') }}"
-          class="flex items-center px-4 py-2 text-slate-700 hover:bg-slate-200 rounded-lg transition-colors"><i
+          class="flex items-center px-4 py-2 rounded-lg {{ request()->routeIs('admin.pengaduan.*') ? 'bg-emerald-500 text-white' : 'text-slate-700 hover:bg-slate-200' }} transition-colors"><i
             data-lucide="message-square" class="w-5 h-5 mr-3"></i>Pengaduan</a>
       </nav>
       <div class="px-4 py-4 border-t">
@@ -126,95 +113,14 @@ $pengaduanTerbaru = Pengaduan::orderBy('created_at', 'desc')->take(3)->get();
           </div>
         </div>
       </header>
+
       <!-- Content -->
       <main class="flex-1 overflow-x-hidden overflow-y-auto bg-slate-100 p-6">
-        <div class="container mx-auto">
-          <!-- Stats Cards -->
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
-            <div class="bg-white p-6 rounded-lg shadow-md flex items-center justify-between">
-              <div>
-                <p class="text-sm font-medium text-slate-500">Total Penduduk</p>
-                <p class="text-3xl font-bold text-slate-800">{{ number_format($totalPenduduk) }}</p>
-              </div>
-              <div class="bg-emerald-100 text-emerald-600 p-3 rounded-full">
-                <i data-lucide="users" class="w-6 h-6"></i>
-              </div>
-            </div>
-            <div class="bg-white p-6 rounded-lg shadow-md flex items-center justify-between">
-              <div>
-                <p class="text-sm font-medium text-slate-500">Artikel Berita</p>
-                <p class="text-3xl font-bold text-slate-800">{{ number_format($totalBerita) }}</p>
-              </div>
-              <div class="bg-blue-100 text-blue-600 p-3 rounded-full">
-                <i data-lucide="newspaper" class="w-6 h-6"></i>
-              </div>
-            </div>
-            <div class="bg-white p-6 rounded-lg shadow-md flex items-center justify-between">
-              <div>
-                <p class="text-sm font-medium text-slate-500">Pengaduan Masuk</p>
-                <p class="text-3xl font-bold text-slate-800">{{ number_format($totalPengaduan) }}</p>
-              </div>
-              <div class="bg-amber-100 text-amber-600 p-3 rounded-full">
-                <i data-lucide="message-square" class="w-6 h-6"></i>
-              </div>
-            </div>
-            <div class="bg-white p-6 rounded-lg shadow-md flex items-center justify-between">
-              <div>
-                <p class="text-sm font-medium text-slate-500">Wisata Desa</p>
-                <p class="text-3xl font-bold text-slate-800">{{ number_format($totalWisata) }}</p>
-              </div>
-              <div class="bg-indigo-100 text-indigo-600 p-3 rounded-full">
-                <i data-lucide="map" class="w-6 h-6"></i>
-              </div>
-            </div>
-          </div>
-          <!-- Recent Activities Table -->
-          <div class="bg-white p-6 rounded-lg shadow-md">
-            <h3 class="font-semibold text-slate-800 mb-4">Pengaduan Terbaru</h3>
-            <div class="overflow-x-auto">
-              <table class="w-full text-left">
-                <thead>
-                  <tr class="border-b bg-slate-50">
-                    <th class="p-4 font-semibold">Pelapor</th>
-                    <th class="p-4 font-semibold">Isi</th>
-                    <th class="p-4 font-semibold">Tanggal</th>
-                    <th class="p-4 font-semibold">Status</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  @forelse($pengaduanTerbaru as $pengaduan)
-                  <tr class="border-b hover:bg-slate-50">
-                    <td class="p-4">{{ $pengaduan->nama }}</td>
-                    <td class="p-4 max-w-sm truncate">{{ $pengaduan->isi }}</td>
-                    <td class="p-4">{{ $pengaduan->created_at->format('d M Y') }}</td>
-                    <td class="p-4">
-                      @if($pengaduan->status == 'Baru')
-                      <span
-                        class="px-2 py-1 text-xs font-semibold text-red-800 bg-red-200 rounded-full">Baru</span>
-                      @elseif($pengaduan->status == 'Diproses')
-                      <span
-                        class="px-2 py-1 text-xs font-semibold text-blue-800 bg-blue-200 rounded-full">Diproses</span>
-                      @else
-                      <span
-                        class="px-2 py-1 text-xs font-semibold text-green-800 bg-green-200 rounded-full">Selesai</span>
-                      @endif
-                    </td>
-                  </tr>
-                  @empty
-                  <tr>
-                    <td colspan="4" class="text-center p-4 text-slate-500">
-                      Belum ada pengaduan.
-                    </td>
-                  </tr>
-                  @endforelse
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
+        @yield('content')
       </main>
+
     </div>
-    <!-- [FIX 2] Overlay moved here, outside main content -->
+    <!-- Overlay for mobile sidebar -->
     <div id="sidebar-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-20 hidden md:hidden"></div>
   </div>
   <script>

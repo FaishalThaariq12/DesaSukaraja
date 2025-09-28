@@ -1,22 +1,47 @@
-{{-- Form Edit Berita --}}
 @extends('admin.dashboard')
+
 @section('content')
-<h2 class="text-xl font-bold mb-4">Edit Berita</h2>
-<form action="{{ route('admin.berita.update', $berita->id) }}" method="POST">
-  @csrf
-  @method('PUT')
-  <div class="mb-4">
-    <label for="judul" class="block">Judul</label>
-    <input type="text" name="judul" id="judul" class="border rounded w-full p-2" value="{{ $berita->judul }}" required>
+<div class="bg-white p-6 md:p-8 rounded-lg shadow-md">
+
+  <div class="flex justify-between items-center mb-6">
+    <h2 class="text-2xl font-bold text-slate-800">Edit Berita</h2>
+    <a href="{{ route('admin.berita.index') }}"
+      class="text-sm text-slate-600 hover:text-emerald-500 transition-colors flex items-center">
+      <i data-lucide="arrow-left" class="w-4 h-4 mr-1"></i>
+      Kembali ke Daftar Berita
+    </a>
   </div>
-  <div class="mb-4">
-    <label for="isi" class="block">Isi</label>
-    <textarea name="isi" id="isi" class="border rounded w-full p-2" rows="6" required>{{ $berita->isi }}</textarea>
-  </div>
-  <div class="mb-4">
-    <label for="gambar" class="block">Gambar (opsional)</label>
-    <input type="text" name="gambar" id="gambar" class="border rounded w-full p-2" value="{{ $berita->gambar }}">
-  </div>
-  <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Update</button>
-</form>
+
+  <form action="{{ route('admin.berita.update', $berita->id) }}" method="POST">
+    @csrf
+    @method('PUT')
+    <div class="space-y-6">
+      <div>
+        <label for="judul" class="block text-sm font-medium text-slate-700 mb-1">Judul Berita</label>
+        <input type="text" name="judul" id="judul"
+          class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 transition"
+          value="{{ $berita->judul }}" required>
+      </div>
+      <div>
+        <label for="isi" class="block text-sm font-medium text-slate-700 mb-1">Isi Berita</label>
+        <textarea name="isi" id="isi"
+          class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 transition"
+          rows="10" required>{{ $berita->isi }}</textarea>
+      </div>
+      <div>
+        <label for="gambar" class="block text-sm font-medium text-slate-700 mb-1">URL Gambar (Opsional)</label>
+        <input type="text" name="gambar" id="gambar"
+          class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 transition"
+          value="{{ $berita->gambar }}">
+      </div>
+    </div>
+
+    <div class="mt-8 border-t pt-6 flex justify-end">
+      <button type="submit"
+        class="bg-blue-500 text-white font-semibold px-6 py-2 rounded-lg shadow-md hover:bg-blue-600 transition-transform duration-300 hover:scale-105">
+        Update Berita
+      </button>
+    </div>
+  </form>
+</div>
 @endsection
