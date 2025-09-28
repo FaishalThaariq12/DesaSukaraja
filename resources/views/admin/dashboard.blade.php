@@ -55,6 +55,9 @@
         <a href="{{ route('admin.dashboard') }}"
           class="flex items-center px-4 py-2 rounded-lg {{ request()->routeIs('admin.dashboard') ? 'bg-emerald-500 text-white' : 'text-slate-700 hover:bg-slate-200' }} transition-colors"><i
             data-lucide="layout-dashboard" class="w-5 h-5 mr-3"></i>Dashboard</a>
+        <a href="{{ route('admin.profil.index') }}"
+          class="flex items-center px-4 py-2 rounded-lg {{ request()->routeIs('admin.profil.*') ? 'bg-emerald-500 text-white' : 'text-slate-700 hover:bg-slate-200' }} transition-colors"><i
+            data-lucide="info" class="w-5 h-5 mr-3"></i>Profil Desa</a>
         <a href="{{ route('admin.berita.index') }}"
           class="flex items-center px-4 py-2 rounded-lg {{ request()->routeIs('admin.berita.*') ? 'bg-emerald-500 text-white' : 'text-slate-700 hover:bg-slate-200' }} transition-colors"><i
             data-lucide="newspaper" class="w-5 h-5 mr-3"></i>Berita</a>
@@ -70,6 +73,7 @@
         <a href="{{ route('admin.pengaduan.index') }}"
           class="flex items-center px-4 py-2 rounded-lg {{ request()->routeIs('admin.pengaduan.*') ? 'bg-emerald-500 text-white' : 'text-slate-700 hover:bg-slate-200' }} transition-colors"><i
             data-lucide="message-square" class="w-5 h-5 mr-3"></i>Pengaduan</a>
+
       </nav>
       <div class="px-4 py-4 border-t">
         <form method="POST" action="{{ route('admin.logout') }}">

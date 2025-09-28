@@ -66,5 +66,6 @@ Route::prefix('admin')->group(function () {
     Route::resource('wisata', AdminWisataController::class)->names('admin.wisata');
     Route::resource('sotk', AdminSotkController::class)->names('admin.sotk');
     Route::resource('pengaduan', AdminPengaduanController::class)->names('admin.pengaduan');
+    Route::resource('profil', App\Http\Controllers\Admin\ProfilDesaController::class)->names('admin.profil');
     Route::get('/berita/{slug}', [App\Http\Controllers\HomeController::class, 'beritaDetail'])->name('berita.detail');
 }); // Ini adalah penutup untuk Route::prefix('admin')->group

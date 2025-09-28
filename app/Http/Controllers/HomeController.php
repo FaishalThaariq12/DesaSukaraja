@@ -13,7 +13,8 @@ class HomeController extends Controller
     $wisatas = \App\Models\Wisata::orderBy('created_at', 'desc')->take(3)->get();
     $sotks = \App\Models\Sotk::orderBy('created_at', 'asc')->get();
     $pengaduanCount = \App\Models\Pengaduan::count();
-    return view('public.beranda', compact('beritas', 'galeris', 'wisatas', 'sotks', 'pengaduanCount'));
+    $profil = \App\Models\ProfilDesa::first();
+    return view('public.beranda', compact('beritas', 'galeris', 'wisatas', 'sotks', 'pengaduanCount', 'profil'));
   }
 
   public function beritaDetail($slug)

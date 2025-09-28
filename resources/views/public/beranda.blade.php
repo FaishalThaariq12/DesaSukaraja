@@ -124,28 +124,37 @@
 
     <!-- Profil Desa Section -->
     <section id="profil" class="py-20 bg-white fade-in-section">
-      <div class="container mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
-        <div
-          class="rounded-lg overflow-hidden shadow-2xl transform hover:scale-105 transition-transform duration-500">
-          <img src="https://placehold.co/600x400/34d399/ffffff?text=Kantor+Desa+Sukaraja"
-            alt="Kantor Desa Sukaraja" class="w-full h-full object-cover">
-        </div>
+      <div class="container mx-auto px-6 grid md:grid-cols-2 gap-x-12 gap-y-8 items-center">
+
+        <!-- Kolom Gambar dengan Ukuran dan Animasi Baru -->
         <div>
-          <h2 class="text-3xl md:text-4xl font-bold text-slate-800 mb-4">Profil Desa Sukaraja</h2>
-          <p class="mb-4 leading-relaxed">Selamat datang di Desa Sukaraja, sebuah desa yang asri dan penuh
-            dengan kearifan lokal. Terletak di Kecamatan Rawamerta, Kabupaten Karawang, desa kami
-            berkomitmen untuk terus berkembang menjadi desa yang maju, mandiri, dan sejahtera bagi seluruh
-            warganya.</p>
-          <p class="mb-6 leading-relaxed">Dengan semangat gotong royong, kami membangun infrastruktur,
-            meningkatkan kualitas pendidikan, dan mengoptimalkan potensi sumber daya alam yang ada. Website
-            ini hadir sebagai jembatan informasi antara pemerintah desa dengan masyarakat luas.</p>
-          <a href="#" class="font-semibold text-emerald-600 hover:text-emerald-700 transition group">
-            Baca Sejarah Desa <span
-              class="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">&rarr;</span>
+          <div class="rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2">
+            @if($profil && $profil->gambar)
+            {{-- UKURAN DIPERBAIKI: Menggunakan aspect-ratio agar responsif --}}
+            <img src="{{ asset('storage/' . $profil->gambar) }}" alt="Gambar Profil Desa" class="w-full h-auto aspect-[4/3] object-cover">
+            @else
+            <img src="https://placehold.co/600x450/34d399/ffffff?text=Kantor+Desa+Sukaraja" alt="Kantor Desa Sukaraja" class="w-full h-auto aspect-[4/3] object-cover">
+            @endif
+          </div>
+        </div>
+
+        <!-- Kolom Teks -->
+        <div>
+          <h2 class="text-3xl md:text-4xl font-bold text-slate-800 mb-4">{{ $profil->judul ?? 'Profil Desa Sukaraja' }}</h2>
+          <div class="text-slate-600 leading-relaxed text-justify">
+            {{-- Memotong teks jika terlalu panjang agar rapi, dan menghapus tag HTML --}}
+            {!! \Illuminate\Support\Str::limit(strip_tags($profil->isi ?? 'Profil desa belum diisi.'), 350) !!}
+          </div>
+
+          {{-- Tombol ditambahkan agar lebih interaktif --}}
+          <a href="#" class="inline-flex items-center gap-2 mt-6 font-semibold text-emerald-600 hover:text-emerald-700 transition group">
+            Baca Sejarah Lengkap
+            <span class="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">&rarr;</span>
           </a>
         </div>
       </div>
     </section>
+
 
     <!-- Berita Desa Section -->
     <section id="berita" class="py-20 fade-in-section">
@@ -160,7 +169,9 @@
               @foreach($beritas as $berita)
               <div class="swiper-slide">
                 <div class="bg-white border border-slate-200 rounded-xl shadow-lg overflow-hidden flex flex-col h-full group transition-transform duration-300 hover:-translate-y-1">
-                  <img src="{{ $berita->gambar ? asset('storage/' . $berita->gambar) : 'https://placehold.co/600x400/60a5fa/ffffff?text=Berita' }}" class="w-full max-h-48 h-48 object-cover rounded-t-xl" alt="{{ $berita->judul }}">
+                  <a href="{{ route('berita.detail', $berita->slug) }}" class="block cursor-pointer focus:outline-none">
+                    <img src="{{ $berita->gambar ? asset('storage/' . $berita->gambar) : 'https://placehold.co/600x400/60a5fa/ffffff?text=Berita' }}" class="w-full max-h-48 h-48 object-cover rounded-t-xl hover:opacity-90 transition cursor-pointer" alt="{{ $berita->judul }}">
+                  </a>
                   <div class="p-6 flex-1 flex flex-col justify-between">
                     <div>
                       <span class="text-xs font-semibold text-emerald-600 bg-emerald-100 px-2 py-1 rounded-full">{{ $berita->created_at->format('d M Y') }}</span>
