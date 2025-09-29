@@ -11,4 +11,10 @@ class WisataController extends Controller
     $wisatas = Wisata::orderBy('created_at', 'desc')->get();
     return view('public.wisata.index', compact('wisatas'));
   }
+
+  public function detail($slug)
+  {
+    $wisata = Wisata::where('slug', $slug)->firstOrFail();
+    return view('public.wisata-detail', compact('wisata'));
+  }
 }

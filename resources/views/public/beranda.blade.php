@@ -125,35 +125,25 @@
     <!-- Profil Desa Section -->
     <section id="profil" class="py-20 bg-white fade-in-section">
       <div class="container mx-auto px-6 grid md:grid-cols-2 gap-x-12 gap-y-8 items-center">
-
-        <!-- Kolom Gambar dengan Ukuran dan Animasi Baru -->
-        <div>
-          <div class="rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2">
+        <a href="{{ route('profil.sejarah') }}" class="flex justify-center group">
+          <div class="rounded-lg overflow-hidden shadow-2xl transform hover:scale-105 transition-transform duration-500 w-64 h-48 group-hover:ring-4 group-hover:ring-emerald-300">
             @if($profil && $profil->gambar)
-            {{-- UKURAN DIPERBAIKI: Menggunakan aspect-ratio agar responsif --}}
-            <img src="{{ asset('storage/' . $profil->gambar) }}" alt="Gambar Profil Desa" class="w-full h-auto aspect-[4/3] object-cover">
+            <img src="{{ asset('storage/' . $profil->gambar) }}" alt="Gambar Profil Desa" class="w-full h-full object-cover">
             @else
-            <img src="https://placehold.co/600x450/34d399/ffffff?text=Kantor+Desa+Sukaraja" alt="Kantor Desa Sukaraja" class="w-full h-auto aspect-[4/3] object-cover">
+            <img src="https://placehold.co/256x192/34d399/ffffff?text=Kantor+Desa+Sukaraja" alt="Kantor Desa Sukaraja" class="w-full h-full object-cover">
             @endif
           </div>
-        </div>
-
-        <!-- Kolom Teks -->
+        </a>
         <div>
           <h2 class="text-3xl md:text-4xl font-bold text-slate-800 mb-4">{{ $profil->judul ?? 'Profil Desa Sukaraja' }}</h2>
-          <div class="text-slate-600 leading-relaxed text-justify">
-            {{-- Memotong teks jika terlalu panjang agar rapi, dan menghapus tag HTML --}}
+          <div class="text-slate-600 leading-relaxed text-justify mb-4">
             {!! \Illuminate\Support\Str::limit(strip_tags($profil->isi ?? 'Profil desa belum diisi.'), 350) !!}
           </div>
-
-          {{-- Tombol ditambahkan agar lebih interaktif --}}
-          <a href="#" class="inline-flex items-center gap-2 mt-6 font-semibold text-emerald-600 hover:text-emerald-700 transition group">
-            Baca Sejarah Lengkap
-            <span class="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">&rarr;</span>
-          </a>
+          <a href="{{ route('profil.sejarah') }}" class="inline-block bg-emerald-500 text-white font-semibold px-5 py-2 rounded-lg shadow hover:bg-emerald-600 transition">Baca Sejarah Lengkap</a>
         </div>
       </div>
     </section>
+
 
 
     <!-- Berita Desa Section -->
@@ -222,17 +212,30 @@
         </div>
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           @foreach($wisatas as $wisata)
-          <div class="bg-white rounded-xl shadow-lg overflow-hidden group">
-            <div class="relative">
-              <img src="{{ $wisata->gambar ?? 'https://placehold.co/600x400/38bdf8/ffffff?text=Wisata' }}" class="w-full h-56 object-cover" alt="{{ $wisata->nama }}">
-              <img src="{{ $wisata->gambar ? asset('storage/' . $wisata->gambar) : 'https://placehold.co/600x400/38bdf8/ffffff?text=Wisata' }}" class="w-full max-h-56 h-56 object-cover rounded-lg" alt="{{ $wisata->nama }}">
-              <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-              <h3 class="absolute bottom-4 left-4 text-2xl font-bold text-white">{{ $wisata->nama }}</h3>
+          <a href="{{ route('wisata.detail', $wisata->slug) }}" class="block">
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden group hover:ring-2 hover:ring-emerald-400 transition">
+              <div class="relative">
+                <img src="{{ $wisata->gambar ? asset('storage/' . $wisata->gambar) : 'https://placehold.co/600x400/38bdf8/ffffff?text=Wisata' }}" class="w-full max-h-56 h-56 object-cover rounded-lg" alt="{{ $wisata->nama }}">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                <h3 class="absolute bottom-4 left-4 text-2xl font-bold text-white">{{ $wisata->nama }}</h3>
+              </div>
+              <div class="p-6">
+                <p class="text-slate-600 mb-2">{{ \Illuminate\Support\Str::limit($wisata->deskripsi, 100) }}</p>
+                @if($wisata->lokasi)
+                <div class="flex items-center text-sm text-slate-500 mb-2">
+                  <i data-lucide="map-pin" class="w-4 h-4 mr-1"></i>
+                  <span><strong>Lokasi:</strong> {{ $wisata->lokasi }}</span>
+                </div>
+                @endif
+                @if($wisata->fasilitas)
+                <div class="text-sm text-slate-500">
+                  <i data-lucide="list" class="w-4 h-4 mr-1"></i>
+                  <span><strong>Fasilitas:</strong> {{ $wisata->fasilitas }}</span>
+                </div>
+                @endif
+              </div>
             </div>
-            <div class="p-6">
-              <p class="text-slate-600 mb-4">{{ \Illuminate\Support\Str::limit($wisata->deskripsi, 100) }}</p>
-            </div>
-          </div>
+          </a>
           @endforeach
         </div>
       </div>

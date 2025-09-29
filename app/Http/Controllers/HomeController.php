@@ -22,4 +22,16 @@ class HomeController extends Controller
     $berita = \App\Models\Berita::where('slug', $slug)->firstOrFail();
     return view('public.berita.detail', compact('berita'));
   }
+
+  public function profilSejarah()
+  {
+    $profil = \App\Models\ProfilDesa::first();
+    return view('public.profil.sejarah', compact('profil'));
+  }
+
+  public function profilVisiMisi()
+  {
+    $profil = \App\Models\ProfilDesa::first();
+    return view('public.profil.visimisi', compact('profil'));
+  }
 }

@@ -58,6 +58,8 @@ class ProfilDesaController extends Controller
         $validated = $request->validate([
             'judul' => 'required|string|max:255',
             'isi' => 'required|string',
+            'visi' => 'required|string',
+            'misi' => 'required|string',
             'gambar' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 

@@ -27,8 +27,11 @@ use App\Http\Controllers\Admin\PengaduanController as AdminPengaduanController;
 // == RUTE PUBLIK ==
 // Rute yang bisa diakses oleh semua pengunjung.
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/profil/sejarah', [HomeController::class, 'profilSejarah'])->name('profil.sejarah');
+Route::get('/profil/visimisi', [HomeController::class, 'profilVisiMisi'])->name('profil.visimisi');
 Route::get('/galeri', [GaleriController::class, 'index'])->name('galeri.index');
 Route::get('/wisata', [WisataController::class, 'index'])->name('wisata.index');
+Route::get('/wisata/{slug}', [WisataController::class, 'detail'])->name('wisata.detail');
 Route::get('/sotk', [SotkController::class, 'index'])->name('sotk.index');
 Route::get('/pengaduan', [PengaduanController::class, 'index'])->name('pengaduan.index');
 Route::post('/pengaduan', [PengaduanController::class, 'store'])->name('pengaduan.store');

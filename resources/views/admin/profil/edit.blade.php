@@ -15,6 +15,14 @@
       <textarea name="isi" id="isi" rows="8" class="w-full px-4 py-2 border rounded-lg" required>{{ old('isi', $profil->isi) }}</textarea>
     </div>
     <div class="mb-4">
+      <label for="visi" class="block text-sm font-medium text-slate-700 mb-1">Visi Desa</label>
+      <textarea name="visi" id="visi" rows="3" class="w-full px-4 py-2 border rounded-lg" required>{{ old('visi', $profil->visi) }}</textarea>
+    </div>
+    <div class="mb-4">
+      <label for="misi" class="block text-sm font-medium text-slate-700 mb-1">Misi Desa</label>
+      <textarea name="misi" id="misi" rows="4" class="w-full px-4 py-2 border rounded-lg" required>{{ old('misi', $profil->misi) }}</textarea>
+    </div>
+    <div class="mb-4">
       <label for="gambar" class="block text-sm font-medium text-slate-700 mb-1">Gambar Profil</label>
       @if($profil->gambar)
       <img src="{{ asset('storage/' . $profil->gambar) }}" alt="Gambar Profil" class="w-48 mb-2 rounded-lg">
