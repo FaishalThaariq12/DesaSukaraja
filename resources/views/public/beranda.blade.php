@@ -84,7 +84,7 @@
         <a href="#beranda" class="nav-link text-slate-600 hover:text-emerald-600 font-medium">Home</a>
         <a href="{{ route('profil.sejarah') }}" class="nav-link text-slate-600 hover:text-emerald-600 font-medium">Profil</a>
         <a href="{{ route('berita.index') }}" class="nav-link text-slate-600 hover:text-emerald-600 font-medium">Berita</a>
-        <a href="#galeri" class="nav-link text-slate-600 hover:text-emerald-600 font-medium">Galeri</a>
+        <a href="#galeri" class="nav-link text-slate-600 hover:text-emerald-600 font-medium{{ (Route::currentRouteName() == 'galeri.detail') ? ' underline decoration-emerald-500 decoration-2 underline-offset-8' : '' }}">Galeri</a>
         <a href="#infografis" class="nav-link text-slate-600 hover:text-emerald-600 font-medium">Infografis</a>
         <a href="#sotk" class="nav-link text-slate-600 hover:text-emerald-600 font-medium">SOTK</a>
         <a href="#peta" class="nav-link text-slate-600 hover:text-emerald-600 font-medium">Peta Desa</a>
@@ -196,15 +196,41 @@
           <h2 class="text-3xl md:text-4xl font-bold text-slate-800">Galeri Desa</h2>
           <p class="text-lg mt-2 text-slate-600">Momen dan keindahan yang terekam di Desa Sukaraja.</p>
         </div>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-          @foreach($galeris as $galeri)
-          <div class="gallery-img group relative overflow-hidden rounded-lg shadow-md">
-            <img src="{{ $galeri->gambar ? asset('storage/' . $galeri->gambar) : 'https://placehold.co/500x500/818cf8/ffffff?text=Galeri' }}" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500" alt="{{ $galeri->judul }}">
-            <div class="overlay absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              <p class="text-white font-bold text-lg">{{ $galeri->judul }}</p>
+
+        @php
+        $colors = ['818cf8','a78bfa','f472b6','3b82f6','06b6d4','10b981'];
+        @endphp
+
+        <div class="grid grid-cols-2 md:grid-cols-6 gap-4 auto-rows-[160px] md:auto-rows-[200px]">
+
+          @foreach($galeris as $index => $galeri)
+          @php
+          $color = $colors[$index % count($colors)];
+          $judulEncoded = urlencode($galeri->judul);
+          $gambarUrl = $galeri->gambar
+          ? asset('storage/' . $galeri->gambar)
+          : "https://placehold.co/600x400/{$color}/ffffff?text={$judulEncoded}";
+
+          // Pola besar kecil (1 besar, 2 kecil, dst.)
+          $spanClass = match($index % 6) {
+          0 => 'md:col-span-2 md:row-span-2', // besar
+          1, 2 => 'md:col-span-2', // sedang
+          3, 4, 5 => 'md:col-span-2', // kecil
+          default => 'md:col-span-2'
+          };
+          @endphp
+
+          <a href="{{ route('galeri.detail', $galeri->id) }}" class="group relative overflow-hidden rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 block {{ $spanClass }}">
+            <img
+              src="{{ $gambarUrl }}"
+              alt="{{ $galeri->judul }}"
+              class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500">
+            <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <p class="text-white font-bold text-base md:text-lg text-center px-2">{{ $galeri->judul }}</p>
             </div>
-          </div>
+          </a>
           @endforeach
+
         </div>
       </div>
     </section>

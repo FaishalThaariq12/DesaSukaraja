@@ -47,7 +47,7 @@
         <a href="/" class="text-slate-600 hover:text-emerald-600 font-medium {{ request()->is('/') ? 'border-b-2 border-emerald-500 pb-1' : '' }}">Home</a>
         <a href="/profil/sejarah" class="text-slate-600 hover:text-emerald-600 font-medium {{ request()->is('profil/sejarah') ? 'border-b-2 border-emerald-500 pb-1' : '' }}">Profil</a>
         <a href="/berita" class="text-slate-600 hover:text-emerald-600 font-medium {{ (request()->is('berita') || request()->is('berita/*')) ? 'border-b-4 border-emerald-500 pb-1' : '' }}">Berita</a>
-        <a href="/#galeri" class="text-slate-600 hover:text-emerald-600 font-medium {{ request()->is('#galeri') ? 'border-b-2 border-emerald-500 pb-1' : '' }}">Galeri</a>
+        <a href="/#galeri" class="text-slate-600 hover:text-emerald-600 font-medium {{ (request()->is('galeri/*') || request()->routeIs('galeri.detail')) ? 'border-b-2 border-emerald-500 pb-1' : '' }}">Galeri</a>
         <a href="/infografis" class="text-slate-600 hover:text-emerald-600 font-medium {{ request()->is('infografis*') ? 'border-b-2 border-emerald-500 pb-1' : '' }}">Infografis</a>
         <a href="/#sotk" class="text-slate-600 hover:text-emerald-600 font-medium {{ request()->is('#sotk') ? 'border-b-2 border-emerald-500 pb-1' : '' }}">SOTK</a>
         <a href="/#pengaduan" class="text-slate-600 hover:text-emerald-600 font-medium {{ request()->is('#pengaduan') ? 'border-b-2 border-emerald-500 pb-1' : '' }}">Pengaduan</a>

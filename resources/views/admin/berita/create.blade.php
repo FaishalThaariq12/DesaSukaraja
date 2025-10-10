@@ -6,9 +6,8 @@
   <div class="flex justify-between items-center mb-6">
     <h2 class="text-2xl font-bold text-slate-800">Tambah Berita Baru</h2>
     <a href="{{ route('admin.berita.index') }}"
-      class="text-sm text-slate-600 hover:text-emerald-500 transition-colors flex items-center">
-      <i data-lucide="arrow-left" class="w-4 h-4 mr-1"></i>
-      Kembali ke Daftar Berita
+      class="text-sm text-slate-600 hover:text-emerald-500 flex items-center gap-1 bg-white border border-slate-300 px-4 py-2 rounded-lg shadow hover:bg-slate-100 transition-colors">
+      <i data-lucide="arrow-left" class="w-4 h-4"></i> <span>Kembali</span>
     </a>
   </div>
 
