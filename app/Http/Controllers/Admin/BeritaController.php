@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Berita;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class BeritaController extends Controller
 {
@@ -55,11 +56,19 @@ class BeritaController extends Controller
       'isi' => 'required',
     ]);
     $slug = Str::slug($request->judul);
+    $gambarPath = $berita->gambar;
+    if ($request->hasFile('gambar')) {
+      // Hapus gambar lama jika ada dan berbeda
+      if ($gambarPath && Storage::disk('public')->exists($gambarPath)) {
+        Storage::disk('public')->delete($gambarPath);
+      }
+      $gambarPath = $request->file('gambar')->store('berita', 'public');
+    }
     $berita->update([
       'judul' => $request->judul,
       'slug' => $slug,
       'isi' => $request->isi,
-      'gambar' => $request->gambar ?? null,
+      'gambar' => $gambarPath,
     ]);
     return redirect()->route('admin.berita.index')->with('success', 'Berita berhasil diupdate');
   }

@@ -6,6 +6,11 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
+  public function beritaIndex()
+  {
+    $beritas = \App\Models\Berita::orderBy('created_at', 'desc')->paginate(6);
+    return view('public.berita.index', compact('beritas'));
+  }
   public function index()
   {
     $beritas = \App\Models\Berita::orderBy('created_at', 'desc')->take(3)->get();
@@ -20,7 +25,8 @@ class HomeController extends Controller
   public function beritaDetail($slug)
   {
     $berita = \App\Models\Berita::where('slug', $slug)->firstOrFail();
-    return view('public.berita.detail', compact('berita'));
+    $beritaTerbaru = \App\Models\Berita::where('id', '!=', $berita->id)->orderBy('created_at', 'desc')->take(5)->get();
+    return view('public.berita.detail', compact('berita', 'beritaTerbaru'));
   }
 
   public function profilSejarah()

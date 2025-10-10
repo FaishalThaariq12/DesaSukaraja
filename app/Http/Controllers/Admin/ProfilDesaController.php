@@ -21,7 +21,7 @@ class ProfilDesaController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.profil.create');
     }
 
     /**
@@ -29,7 +29,22 @@ class ProfilDesaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'judul' => 'required|string|max:255',
+            'isi' => 'required|string',
+            'visi' => 'required|string',
+            'misi' => 'required|string',
+            'gambar' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+        ]);
+
+        if ($request->hasFile('gambar')) {
+            $file = $request->file('gambar');
+            $path = $file->store('profil', 'public');
+            $validated['gambar'] = $path;
+        }
+
+        \App\Models\ProfilDesa::create($validated);
+        return redirect()->route('admin.profil.index')->with('success', 'Profil desa berhasil ditambahkan.');
     }
 
     /**

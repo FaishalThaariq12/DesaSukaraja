@@ -68,21 +68,26 @@
 
 <body class="bg-slate-50 text-slate-700">
 
-  <!-- Header & Navigation -->
+  <!-- Header & Navigation (Revisi) -->
   <header id="header" class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm transition-all duration-300">
     <div class="container mx-auto px-6 py-4 flex justify-between items-center">
       <a href="#" class="flex items-center space-x-2">
-        <img src="https://placehold.co/40x40/10b981/ffffff?text=DS" alt="Logo Desa Sukaraja"
-          class="rounded-full">
-        <span class="text-xl font-bold text-slate-800">Desa Sukaraja</span>
+        <img src="assets/logo.png" alt="Logo Desa Sukaraja"
+          class="w-10 h-10 md:w-12 md:h-12 object-contain site-logo flex-shrink-0"
+          onerror="this.src='https://placehold.co/48x48/10b981/ffffff?text=DS'">
+        <div class="flex flex-col">
+          <span class="text-xs text-slate-800 leading-tight md:text-sm font-semibold">PEMERINTAH DESA SUKARAJA</span>
+          <span class="text-xs text-slate-600 leading-tight md:text-sm">KABUPATEN KARAWANG</span>
+        </div>
       </a>
       <nav class="hidden md:flex items-center space-x-8">
-        <a href="#profil" class="nav-link text-slate-600 hover:text-emerald-600 font-medium">Profil</a>
-        <a href="#berita" class="nav-link text-slate-600 hover:text-emerald-600 font-medium">Berita</a>
+        <a href="#beranda" class="nav-link text-slate-600 hover:text-emerald-600 font-medium">Home</a>
+        <a href="{{ route('profil.sejarah') }}" class="nav-link text-slate-600 hover:text-emerald-600 font-medium">Profil</a>
+        <a href="{{ route('berita.index') }}" class="nav-link text-slate-600 hover:text-emerald-600 font-medium">Berita</a>
         <a href="#galeri" class="nav-link text-slate-600 hover:text-emerald-600 font-medium">Galeri</a>
-        <a href="#peta" class="nav-link text-slate-600 hover:text-emerald-600 font-medium">Peta</a>
+        <a href="#infografis" class="nav-link text-slate-600 hover:text-emerald-600 font-medium">Infografis</a>
         <a href="#sotk" class="nav-link text-slate-600 hover:text-emerald-600 font-medium">SOTK</a>
-        <a href="#wisata" class="nav-link text-slate-600 hover:text-emerald-600 font-medium">Wisata</a>
+        <a href="#peta" class="nav-link text-slate-600 hover:text-emerald-600 font-medium">Peta Desa</a>
       </nav>
       <div class="flex items-center space-x-4">
         <a href="#pengaduan"
@@ -96,19 +101,20 @@
     </div>
     <!-- Mobile Menu -->
     <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
-      <a href="#profil" class="block py-2 text-slate-600 hover:text-emerald-600">Profil</a>
-      <a href="#berita" class="block py-2 text-slate-600 hover:text-emerald-600">Berita</a>
+      <a href="#beranda" class="block py-2 text-slate-600 hover:text-emerald-600">Home</a>
+      <a href="{{ route('profil.sejarah') }}" class="block py-2 text-slate-600 hover:text-emerald-600">Profil</a>
+      <a href="{{ route('berita.index') }}" class="block py-2 text-slate-600 hover:text-emerald-600">Berita</a>
       <a href="#galeri" class="block py-2 text-slate-600 hover:text-emerald-600">Galeri</a>
-      <a href="#peta" class="block py-2 text-slate-600 hover:text-emerald-600">Peta</a>
+      <a href="#infografis" class="block py-2 text-slate-600 hover:text-emerald-600">Infografis</a>
       <a href="#sotk" class="block py-2 text-slate-600 hover:text-emerald-600">SOTK</a>
-      <a href="#wisata" class="block py-2 text-slate-600 hover:text-emerald-600">Wisata</a>
+      <a href="#peta" class="block py-2 text-slate-600 hover:text-emerald-600">Peta Desa</a>
       <a href="#pengaduan"
         class="block w-full text-center mt-4 bg-emerald-500 text-white font-semibold px-5 py-2 rounded-lg shadow-md hover:bg-emerald-600 transition-all">Lapor</a>
     </div>
   </header>
 
   <main>
-    <!-- Hero Section -->
+    <!-- Hero Section (Revisi) -->
     <section id="beranda" class="hero-bg h-[60vh] md:h-[90vh] flex items-center justify-center text-white">
       <div class="text-center px-4">
         <h1 class="text-4xl md:text-6xl font-extrabold mb-4 drop-shadow-lg animate-fade-in-down">Selamat Datang
@@ -122,67 +128,68 @@
       </div>
     </section>
 
-    <!-- Profil Desa Section -->
+    <!-- Profil Desa Section (Revisi) -->
     <section id="profil" class="py-20 bg-white fade-in-section">
-      <div class="container mx-auto px-6 grid md:grid-cols-2 gap-x-12 gap-y-8 items-center">
-        <a href="{{ route('profil.sejarah') }}" class="flex justify-center group">
-          <div class="rounded-lg overflow-hidden shadow-2xl transform hover:scale-105 transition-transform duration-500 w-64 h-48 group-hover:ring-4 group-hover:ring-emerald-300">
-            @if($profil && $profil->gambar)
-            <img src="{{ asset('storage/' . $profil->gambar) }}" alt="Gambar Profil Desa" class="w-full h-full object-cover">
-            @else
-            <img src="https://placehold.co/256x192/34d399/ffffff?text=Kantor+Desa+Sukaraja" alt="Kantor Desa Sukaraja" class="w-full h-full object-cover">
-            @endif
-          </div>
-        </a>
+      <div class="container mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+        <div class="max-w-3xl mx-auto rounded-lg overflow-hidden shadow-2xl transform hover:scale-105 transition-transform duration-500 bg-white">
+          @if($profil && $profil->gambar)
+          <img src="{{ asset('storage/' . $profil->gambar) }}"
+            alt="Gambar Profil Desa"
+            class="w-full aspect-[16/10] object-contain bg-white rounded-lg shadow">
+          @else
+          <img src="https://placehold.co/800x500/34d399/ffffff?text=Kantor+Desa+Sukaraja"
+            alt="Kantor Desa Sukaraja"
+            class="w-full aspect-[16/10] object-contain bg-white rounded-lg shadow">
+          @endif
+        </div>
+
+
         <div>
           <h2 class="text-3xl md:text-4xl font-bold text-slate-800 mb-4">{{ $profil->judul ?? 'Profil Desa Sukaraja' }}</h2>
-          <div class="text-slate-600 leading-relaxed text-justify mb-4">
-            {!! \Illuminate\Support\Str::limit(strip_tags($profil->isi ?? 'Profil desa belum diisi.'), 350) !!}
+          <div class="mb-4 leading-relaxed text-slate-600">
+            {!! \Illuminate\Support\Str::limit(strip_tags($profil->isi ?? 'Selamat datang di Desa Sukaraja, sebuah desa yang asri dan penuh dengan kearifan lokal. Terletak di Kecamatan Rawamerta, Kabupaten Karawang, desa kami berkomitmen untuk terus berkembang menjadi desa yang maju, mandiri, dan sejahtera bagi seluruh warganya.'), 350) !!}
           </div>
-          <a href="{{ route('profil.sejarah') }}" class="inline-block bg-emerald-500 text-white font-semibold px-5 py-2 rounded-lg shadow hover:bg-emerald-600 transition">Baca Sejarah Lengkap</a>
+          <a href="{{ route('profil.sejarah') }}" class="font-semibold text-emerald-600 hover:text-emerald-700 transition group">
+            Baca Sejarah Desa <span class="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">&rarr;</span>
+          </a>
         </div>
       </div>
     </section>
 
 
 
-    <!-- Berita Desa Section -->
+    <!-- Berita Desa Section (Revisi) -->
     <section id="berita" class="py-20 fade-in-section">
       <div class="container mx-auto px-6">
         <div class="text-center mb-12">
           <h2 class="text-3xl md:text-4xl font-bold text-slate-800">Berita & Informasi Desa</h2>
           <p class="text-lg mt-2 text-slate-600">Ikuti perkembangan dan kegiatan terbaru dari Desa Sukaraja.</p>
         </div>
-        <div class="relative">
-          <div class="swiper berita-swiper pb-12">
-            <div class="swiper-wrapper">
-              @foreach($beritas as $berita)
-              <div class="swiper-slide">
-                <div class="bg-white border border-slate-200 rounded-xl shadow-lg overflow-hidden flex flex-col h-full group transition-transform duration-300 hover:-translate-y-1">
-                  <a href="{{ route('berita.detail', $berita->slug) }}" class="block cursor-pointer focus:outline-none">
-                    <img src="{{ $berita->gambar ? asset('storage/' . $berita->gambar) : 'https://placehold.co/600x400/60a5fa/ffffff?text=Berita' }}" class="w-full max-h-48 h-48 object-cover rounded-t-xl hover:opacity-90 transition cursor-pointer" alt="{{ $berita->judul }}">
-                  </a>
-                  <div class="p-6 flex-1 flex flex-col justify-between">
-                    <div>
-                      <span class="text-xs font-semibold text-emerald-600 bg-emerald-100 px-2 py-1 rounded-full">{{ $berita->created_at->format('d M Y') }}</span>
-                      <h3 class="text-lg md:text-xl font-bold my-2 text-slate-800 group-hover:text-emerald-600 transition">{{ $berita->judul }}</h3>
-                      <p class="text-slate-600 mb-4 text-sm leading-relaxed">{{ \Illuminate\Support\Str::limit($berita->isi, 100) }}</p>
-                    </div>
-                    <a href="{{ route('berita.detail', $berita->slug) }}" class="font-semibold text-emerald-500 text-sm hover:text-emerald-700 mt-auto">Baca Selengkapnya &rarr;</a>
-                  </div>
-                </div>
-              </div>
-              @endforeach
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          @foreach($beritas as $berita)
+          <div class="bg-white rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300 group">
+            <a href="{{ route('berita.detail', $berita->slug) }}">
+              <img src="{{ $berita->gambar ? asset('storage/' . $berita->gambar) : 'https://placehold.co/600x400/60a5fa/ffffff?text=Berita' }}" class="w-full h-48 object-cover" alt="{{ $berita->judul }}">
+            </a>
+            <div class="p-6">
+              <span class="text-sm text-slate-500">{{ $berita->created_at->format('d F Y') }}</span>
+              <h3 class="text-xl font-bold my-2 text-slate-800 group-hover:text-emerald-600 transition">{{ $berita->judul }}</h3>
+              <p class="text-slate-600 mb-4 text-sm leading-relaxed">{{ \Illuminate\Support\Str::limit($berita->isi, 100) }}</p>
+              <a href="{{ route('berita.detail', $berita->slug) }}" class="font-semibold text-emerald-500 text-sm hover:text-emerald-700">Baca Selengkapnya &rarr;</a>
             </div>
-            <div class="swiper-pagination"></div>
-            <div class="swiper-button-next !bg-white !shadow-lg !rounded-full !w-10 !h-10 !flex !items-center !justify-center !text-emerald-600 !border !border-slate-200"></div>
-            <div class="swiper-button-prev !bg-white !shadow-lg !rounded-full !w-10 !h-10 !flex !items-center !justify-center !text-emerald-600 !border !border-slate-200"></div>
           </div>
+          @endforeach
+        </div>
+        <div class="flex justify-center mt-10">
+          <a href="{{ route('berita.index') }}" class="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-6 py-3 rounded-full shadow-lg transition-all group">
+            <i data-lucide="newspaper" class="w-5 h-5"></i>
+            <span>Lihat Berita Lebih Banyak</span>
+          </a>
         </div>
       </div>
     </section>
 
-    <!-- Galeri & Wisata Section -->
+    <!-- Galeri Section (Revisi) -->
     <section id="galeri" class="py-20 bg-white fade-in-section">
       <div class="container mx-auto px-6">
         <div class="text-center mb-12">
@@ -192,8 +199,7 @@
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
           @foreach($galeris as $galeri)
           <div class="gallery-img group relative overflow-hidden rounded-lg shadow-md">
-            <img src="{{ $galeri->gambar ?? 'https://placehold.co/500x500/818cf8/ffffff?text=Galeri' }}" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500" alt="{{ $galeri->judul }}">
-            <img src="{{ $galeri->gambar ? asset('storage/' . $galeri->gambar) : 'https://placehold.co/500x500/818cf8/ffffff?text=Galeri' }}" class="w-full max-h-56 object-cover rounded-lg transform group-hover:scale-110 transition-transform duration-500" alt="{{ $galeri->judul }}">
+            <img src="{{ $galeri->gambar ? asset('storage/' . $galeri->gambar) : 'https://placehold.co/500x500/818cf8/ffffff?text=Galeri' }}" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500" alt="{{ $galeri->judul }}">
             <div class="overlay absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
               <p class="text-white font-bold text-lg">{{ $galeri->judul }}</p>
             </div>
@@ -203,43 +209,53 @@
       </div>
     </section>
 
-    <!-- Wisata Desa Section -->
-    <section id="wisata" class="py-20 fade-in-section">
+    <!-- Infografis Section (Revisi) -->
+    <section id="infografis" class="py-20 fade-in-section">
       <div class="container mx-auto px-6">
         <div class="text-center mb-12">
-          <h2 class="text-3xl md:text-4xl font-bold text-slate-800">Potensi Wisata Desa Sukaraja</h2>
-          <p class="text-lg mt-2 text-slate-600">Temukan pesona tersembunyi di desa kami.</p>
+          <h2 class="text-3xl md:text-4xl font-bold text-slate-800">Infografis Administrasi Penduduk</h2>
+          <p class="text-lg mt-2 text-slate-600">Data Kependudukan Desa Sukaraja (Data per September 2025)</p>
         </div>
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          @foreach($wisatas as $wisata)
-          <a href="{{ route('wisata.detail', $wisata->slug) }}" class="block">
-            <div class="bg-white rounded-xl shadow-lg overflow-hidden group hover:ring-2 hover:ring-emerald-400 transition">
-              <div class="relative">
-                <img src="{{ $wisata->gambar ? asset('storage/' . $wisata->gambar) : 'https://placehold.co/600x400/38bdf8/ffffff?text=Wisata' }}" class="w-full max-h-56 h-56 object-cover rounded-lg" alt="{{ $wisata->nama }}">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                <h3 class="absolute bottom-4 left-4 text-2xl font-bold text-white">{{ $wisata->nama }}</h3>
+          <!-- Data Card 1 -->
+          <div class="bg-white rounded-xl shadow-lg p-8 text-center transform hover:-translate-y-2 transition-transform duration-300">
+            <i data-lucide="users" class="w-16 h-16 mx-auto text-emerald-500 mb-4"></i>
+            <h3 class="text-5xl font-extrabold text-slate-800">4,782</h3>
+            <p class="text-slate-600 mt-2 font-semibold text-lg">Total Penduduk</p>
+          </div>
+          <!-- Data Card 2 -->
+          <div class="bg-white rounded-xl shadow-lg p-8 text-center transform hover:-translate-y-2 transition-transform duration-300">
+            <i data-lucide="home" class="w-16 h-16 mx-auto text-sky-500 mb-4"></i>
+            <h3 class="text-5xl font-extrabold text-slate-800">1,520</h3>
+            <p class="text-slate-600 mt-2 font-semibold text-lg">Total Kartu Keluarga</p>
+          </div>
+          <!-- Data Card 3 -->
+          <div class="bg-white rounded-xl shadow-lg p-8 text-center transform hover:-translate-y-2 transition-transform duration-300">
+            <div class="flex justify-center items-center space-x-4">
+              <i data-lucide="male" class="w-10 h-10 text-blue-500"></i>
+              <span class="text-3xl font-bold text-slate-800">2,400</span>
+              <span class="text-slate-600">Laki-laki</span>
+            </div>
+            <div class="flex justify-center items-center space-x-4 mt-4">
+              <i data-lucide="female" class="w-10 h-10 text-pink-500"></i>
+              <span class="text-3xl font-bold text-slate-800">2,382</span>
+              <span class="text-slate-600">Perempuan</span>
+            </div>
+            <div class="mt-4 grid grid-cols-2 gap-4">
+              <div class="bg-emerald-50 rounded-lg p-2">
+                <span class="block text-xs text-slate-500">Usia Produktif</span>
+                <span class="block text-lg font-bold text-slate-800">3,100</span>
               </div>
-              <div class="p-6">
-                <p class="text-slate-600 mb-2">{{ \Illuminate\Support\Str::limit($wisata->deskripsi, 100) }}</p>
-                @if($wisata->lokasi)
-                <div class="flex items-center text-sm text-slate-500 mb-2">
-                  <i data-lucide="map-pin" class="w-4 h-4 mr-1"></i>
-                  <span><strong>Lokasi:</strong> {{ $wisata->lokasi }}</span>
-                </div>
-                @endif
-                @if($wisata->fasilitas)
-                <div class="text-sm text-slate-500">
-                  <i data-lucide="list" class="w-4 h-4 mr-1"></i>
-                  <span><strong>Fasilitas:</strong> {{ $wisata->fasilitas }}</span>
-                </div>
-                @endif
+              <div class="bg-sky-50 rounded-lg p-2">
+                <span class="block text-xs text-slate-500">Usia Non Produktif</span>
+                <span class="block text-lg font-bold text-slate-800">1,682</span>
               </div>
             </div>
-          </a>
-          @endforeach
+          </div>
         </div>
       </div>
     </section>
+
 
     <!-- SOTK Section -->
     <section id="sotk" class="py-20 bg-white fade-in-section">
@@ -248,20 +264,27 @@
           <h2 class="text-3xl md:text-4xl font-bold text-slate-800">Struktur Organisasi & Tata Kerja</h2>
           <p class="text-lg mt-2 text-slate-600">Pemerintahan Desa Sukaraja Periode 2024-2029</p>
         </div>
-        <div class="flex flex-col items-center">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 justify-items-center">
           @foreach($sotks as $sotk)
-          <div class="text-center mb-8">
-            <img src="{{ $sotk->foto ?? 'https://placehold.co/128x128/94a3b8/ffffff?text=Foto' }}" alt="{{ $sotk->nama }}" class="w-32 h-32 rounded-full mx-auto shadow-lg border-4 border-emerald-400">
-            <img src="{{ $sotk->foto ? asset('storage/' . $sotk->foto) : 'https://placehold.co/128x128/94a3b8/ffffff?text=Foto' }}" alt="{{ $sotk->nama }}" class="w-32 h-32 object-cover rounded-full mx-auto shadow-lg border-4 border-emerald-400">
-            <h3 class="text-xl font-bold mt-4 text-slate-800">{{ $sotk->nama }}</h3>
-            <p class="text-emerald-600 font-semibold">{{ $sotk->jabatan }}</p>
+          <div class="bg-white rounded-lg shadow-lg overflow-hidden w-full max-w-xs transform hover:-translate-y-2 transition-transform duration-300">
+            <img src="{{ $sotk->foto ? asset('storage/' . $sotk->foto) : 'https://placehold.co/400x400/94a3b8/ffffff?text=Foto' }}" alt="{{ $sotk->nama }}" class="w-full h-auto object-cover">
+            <div class="p-4 bg-red-600 text-white text-center">
+              <h3 class="text-lg font-bold">{{ $sotk->nama }}</h3>
+              <p class="text-sm">{{ $sotk->jabatan }}</p>
+            </div>
           </div>
           @endforeach
+        </div>
+        <div class="text-center mt-12">
+          <a href="#" class="inline-flex items-center gap-2 font-semibold text-slate-700 hover:text-emerald-600 transition group">
+            <i data-lucide="external-link" class="w-4 h-4"></i>
+            <span class="uppercase tracking-wider text-sm">Lihat Struktur Lebih Lengkap</span>
+          </a>
         </div>
       </div>
     </section>
 
-    <!-- Peta Desa & Pengaduan Section -->
+    <!-- Peta Desa & Pengaduan Section (Revisi) -->
     <section class="py-20 fade-in-section">
       <div class="container mx-auto px-6 grid lg:grid-cols-5 gap-12 items-start">
         <!-- Peta Desa -->
@@ -278,7 +301,7 @@
         <!-- Pengaduan -->
         <div id="pengaduan" class="lg:col-span-2 bg-white p-8 rounded-xl shadow-2xl">
           <h2 class="text-3xl font-bold text-slate-800 mb-1">Layanan Pengaduan</h2>
-          <p class="text-slate-500 mb-2">Punya keluhan atau masukan? Sampaikan kepada kami.</p>
+          <p class="text-slate-500 mb-6">Punya keluhan atau masukan? Sampaikan kepada kami.</p>
           <p class="text-slate-600 mb-6">Total pengaduan masuk: <span class="font-bold text-emerald-600">{{ $pengaduanCount }}</span></p>
           <form action="#" method="POST">
             <div class="mb-4">
@@ -288,15 +311,13 @@
                 placeholder="Masukkan nama Anda">
             </div>
             <div class="mb-4">
-              <label for="telepon" class="block text-sm font-medium text-slate-700 mb-1">Nomor
-                Telepon</label>
+              <label for="telepon" class="block text-sm font-medium text-slate-700 mb-1">Nomor Telepon</label>
               <input type="tel" id="telepon" name="telepon"
                 class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 transition"
                 placeholder="0812xxxxxxxx">
             </div>
             <div class="mb-6">
-              <label for="pesan" class="block text-sm font-medium text-slate-700 mb-1">Isi
-                Pengaduan/Aspirasi</label>
+              <label for="pesan" class="block text-sm font-medium text-slate-700 mb-1">Isi Pengaduan/Aspirasi</label>
               <textarea id="pesan" name="pesan" rows="4"
                 class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 transition"
                 placeholder="Tuliskan pesan Anda di sini..."></textarea>
@@ -311,7 +332,7 @@
     </section>
   </main>
 
-  <!-- Footer -->
+  <!-- Footer (Revisi) -->
   <footer class="bg-slate-800 text-white pt-16 pb-8">
     <div class="container mx-auto px-6">
       <div class="grid md:grid-cols-3 gap-8">
@@ -322,12 +343,9 @@
         <div>
           <h3 class="text-xl font-bold mb-4">Tautan Cepat</h3>
           <ul class="space-y-2">
-            <li><a href="#profil" class="text-slate-300 hover:text-emerald-400 transition">Profil Desa</a>
-            </li>
-            <li><a href="#berita" class="text-slate-300 hover:text-emerald-400 transition">Berita
-                Terkini</a></li>
-            <li><a href="#pengaduan" class="text-slate-300 hover:text-emerald-400 transition">Layanan
-                Pengaduan</a></li>
+            <li><a href="#profil" class="text-slate-300 hover:text-emerald-400 transition">Profil Desa</a></li>
+            <li><a href="#berita" class="text-slate-300 hover:text-emerald-400 transition">Berita Terkini</a></li>
+            <li><a href="#pengaduan" class="text-slate-300 hover:text-emerald-400 transition">Layanan Pengaduan</a></li>
           </ul>
         </div>
         <div>
@@ -335,12 +353,9 @@
           <p class="text-slate-300">Email: kontak@sukaraja.desa.id</p>
           <p class="text-slate-300">Telepon: (0267) 123-456</p>
           <div class="flex space-x-4 mt-4">
-            <a href="#" class="text-slate-300 hover:text-emerald-400 transition"><i
-                data-lucide="facebook"></i></a>
-            <a href="#" class="text-slate-300 hover:text-emerald-400 transition"><i
-                data-lucide="instagram"></i></a>
-            <a href="#" class="text-slate-300 hover:text-emerald-400 transition"><i
-                data-lucide="youtube"></i></a>
+            <a href="#" class="text-slate-300 hover:text-emerald-400 transition"><i data-lucide="facebook"></i></a>
+            <a href="#" class="text-slate-300 hover:text-emerald-400 transition"><i data-lucide="instagram"></i></a>
+            <a href="#" class="text-slate-300 hover:text-emerald-400 transition"><i data-lucide="youtube"></i></a>
           </div>
         </div>
       </div>

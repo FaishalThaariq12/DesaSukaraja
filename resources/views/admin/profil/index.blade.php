@@ -6,11 +6,11 @@
   @if(isset($profil) && $profil)
   <div class="flex flex-col md:flex-row gap-8 items-start">
     <div class="w-full md:w-1/3 flex-shrink-0">
-  @if($profil->gambar)
-  <img src="{{ asset('storage/' . $profil->gambar) }}" alt="Gambar Profil Desa" class="w-64 h-48 object-cover rounded-lg border mx-auto">
-  @else
-  
-  @endif
+      @if($profil->gambar)
+      <img src="{{ asset('storage/' . $profil->gambar) }}" alt="Gambar Profil Desa" class="w-full h-64 object-cover rounded-lg shadow mx-auto">
+      @else
+
+      @endif
     </div>
     <div class="flex-1">
       <h2 class="text-xl font-bold text-slate-800 mb-2">{{ $profil->judul }}</h2>
@@ -21,7 +21,10 @@
     <a href="{{ route('admin.profil.edit', $profil->id) }}" class="bg-emerald-500 text-white px-6 py-2 rounded-lg font-semibold shadow hover:bg-emerald-600 transition">Edit Profil</a>
   </div>
   @else
-  <div class="text-slate-500">Belum ada data profil desa.</div>
+  <div class="text-slate-500 mb-4">Belum ada data profil desa.</div>
+  <div class="flex justify-end">
+    <a href="{{ route('admin.profil.create') }}" class="bg-emerald-500 text-white px-6 py-2 rounded-lg font-semibold shadow hover:bg-emerald-600 transition">Tambah Profil</a>
+  </div>
   @endif
 </div>
 @endsection

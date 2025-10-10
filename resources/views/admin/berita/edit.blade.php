@@ -12,7 +12,7 @@
     </a>
   </div>
 
-  <form action="{{ route('admin.berita.update', $berita->id) }}" method="POST">
+  <form action="{{ route('admin.berita.update', $berita->id) }}" method="POST" enctype="multipart/form-data">
     @csrf
     @method('PUT')
     <div class="space-y-6">
@@ -29,10 +29,15 @@
           rows="10" required>{{ $berita->isi }}</textarea>
       </div>
       <div>
-        <label for="gambar" class="block text-sm font-medium text-slate-700 mb-1">URL Gambar (Opsional)</label>
-        <input type="text" name="gambar" id="gambar"
-          class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 transition"
-          value="{{ $berita->gambar }}">
+        <label for="gambar" class="block text-sm font-medium text-slate-700 mb-1">Upload Gambar (Opsional)</label>
+        <input type="file" name="gambar" id="gambar"
+          class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 transition">
+        @if($berita->gambar)
+        <div class="mt-2">
+          <span class="text-xs text-slate-500">Gambar saat ini:</span><br>
+          <img src="{{ asset('storage/' . $berita->gambar) }}" alt="Gambar Berita" class="h-32 rounded shadow mt-1">
+        </div>
+        @endif
       </div>
     </div>
 
