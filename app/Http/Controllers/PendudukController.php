@@ -31,12 +31,46 @@ class PendudukController extends Controller
     {
         $request->validate([
             'dusun' => 'required|string|max:100',
-            'total_penduduk' => 'required|integer|min:0',
-            'laki_laki' => 'required|integer|min:0',
-            'perempuan' => 'required|integer|min:0',
-            'kepala_keluarga' => 'required|integer|min:0',
+            'bulan' => 'required|string|max:20',
+            'tahun' => 'required|integer|min:2000',
+            // Kolom lain boleh kosong
         ]);
-        Penduduk::create($request->all());
+        $data = $request->all();
+        // Set semua kolom integer kosong jadi 0
+        $integerFields = [
+            'total_penduduk',
+            'kepala_keluarga',
+            'laki_laki',
+            'perempuan',
+            'jumlah_kk',
+            'wajib_ktp',
+            'sudah_kk',
+            'belum_kk',
+            'sudah_ktp',
+            'belum_ktp',
+            'lahir',
+            'datang',
+            'mati',
+            'pindah',
+            'penduduk_bulan_lalu',
+            'penduduk_bulan_ini',
+            'wni',
+            'wna',
+            'kelompok_usia_0_5',
+            'kelompok_usia_6_11',
+            'kelompok_usia_12_17',
+            'kelompok_usia_18_25',
+            'kelompok_usia_26_35',
+            'kelompok_usia_36_45',
+            'kelompok_usia_46_60',
+            'kelompok_usia_61_keatas'
+        ];
+        foreach ($integerFields as $field) {
+            if (empty($data[$field])) {
+                $data[$field] = 0;
+            }
+        }
+        Penduduk::create($data);
         return redirect()->route('admin.infografis.index')->with('success', 'Data penduduk berhasil ditambahkan.');
     }
 
@@ -63,12 +97,45 @@ class PendudukController extends Controller
     {
         $request->validate([
             'dusun' => 'required|string|max:100',
-            'total_penduduk' => 'required|integer|min:0',
-            'laki_laki' => 'required|integer|min:0',
-            'perempuan' => 'required|integer|min:0',
-            'kepala_keluarga' => 'required|integer|min:0',
+            'bulan' => 'required|string|max:20',
+            'tahun' => 'required|integer|min:2000',
+            // Kolom lain boleh kosong
         ]);
-        $penduduk->update($request->all());
+        $data = $request->all();
+        $integerFields = [
+            'total_penduduk',
+            'kepala_keluarga',
+            'laki_laki',
+            'perempuan',
+            'jumlah_kk',
+            'wajib_ktp',
+            'sudah_kk',
+            'belum_kk',
+            'sudah_ktp',
+            'belum_ktp',
+            'lahir',
+            'datang',
+            'mati',
+            'pindah',
+            'penduduk_bulan_lalu',
+            'penduduk_bulan_ini',
+            'wni',
+            'wna',
+            'kelompok_usia_0_5',
+            'kelompok_usia_6_11',
+            'kelompok_usia_12_17',
+            'kelompok_usia_18_25',
+            'kelompok_usia_26_35',
+            'kelompok_usia_36_45',
+            'kelompok_usia_46_60',
+            'kelompok_usia_61_keatas'
+        ];
+        foreach ($integerFields as $field) {
+            if (empty($data[$field])) {
+                $data[$field] = 0;
+            }
+        }
+        $penduduk->update($data);
         return redirect()->route('admin.infografis.index')->with('success', 'Data penduduk berhasil diupdate.');
     }
 

@@ -15,7 +15,7 @@
   </div>
 
   <div class="flex justify-center mb-12" data-aos="fade-up" data-aos-delay="150">
-    <a href="{{ url('/') }}"
+    <a href="{{ url('/#berita') }}"
       class="inline-flex items-center gap-2 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white font-medium px-5 py-2.5 md:px-7 md:py-3 rounded-full shadow-md hover:shadow-lg transition-all duration-300">
       <i data-lucide="arrow-left" class="w-4 h-4 md:w-5 md:h-5"></i>
       <span>Kembali ke Beranda</span>

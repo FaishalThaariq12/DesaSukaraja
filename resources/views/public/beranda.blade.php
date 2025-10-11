@@ -296,11 +296,11 @@
     <section id="sotk" class="py-20 bg-white fade-in-section">
       <div class="container mx-auto px-6">
         <div class="text-center mb-12">
-          <h2 class="text-3xl md:text-4xl font-bold text-slate-800">Struktur Organisasi & Tata Kerja</h2>
+          <a href="{{ route('pemerintahan') }}" class="text-3xl md:text-4xl font-bold text-slate-800 hover:text-emerald-600 transition-colors duration-300 block cursor-pointer">Pemerintahan Desa</a>
           <p class="text-lg mt-2 text-slate-600">Pemerintahan Desa Sukaraja Periode 2024-2029</p>
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 justify-items-center">
-          @foreach($sotks as $sotk)
+          @foreach($sotks->where('jabatan', '!=', 'Bagan')->take(4) as $sotk)
           <div class="bg-white rounded-lg shadow-lg overflow-hidden w-full max-w-xs transform hover:-translate-y-2 transition-transform duration-300">
             <img src="{{ $sotk->foto ? asset('storage/' . $sotk->foto) : 'https://placehold.co/400x400/94a3b8/ffffff?text=Foto' }}" alt="{{ $sotk->nama }}" class="w-full h-auto object-cover">
             <div class="p-4 bg-red-600 text-white text-center">
@@ -311,9 +311,9 @@
           @endforeach
         </div>
         <div class="text-center mt-12">
-          <a href="#" class="inline-flex items-center gap-2 font-semibold text-slate-700 hover:text-emerald-600 transition group">
+          <a href="{{ route('pemerintahan') }}" class="inline-flex items-center gap-2 font-semibold text-slate-700 hover:text-emerald-600 transition group">
             <i data-lucide="external-link" class="w-4 h-4"></i>
-            <span class="uppercase tracking-wider text-sm">Lihat Struktur Lebih Lengkap</span>
+            <span class="uppercase tracking-wider text-sm">Lihat Pemerintahan Desa</span>
           </a>
         </div>
       </div>

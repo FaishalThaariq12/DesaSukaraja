@@ -28,6 +28,13 @@ use App\Http\Controllers\Admin\PengaduanController as AdminPengaduanController;
 // Rute yang bisa diakses oleh semua pengunjung.
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/profil/sejarah', [HomeController::class, 'profilSejarah'])->name('profil.sejarah');
+// Route Pemerintahan
+Route::get('/pemerintahan', function () {
+    $sotks = \App\Models\Sotk::whereNull('bagan')->orderBy('jabatan')->get();
+    $baganConfig = @json_decode(file_get_contents(config_path('bagan_sotk.json')), true);
+    $baganSotk = $baganConfig['bagan'] ?? null;
+    return view('sotk.pemerintahan', compact('sotks', 'baganSotk'));
+})->name('pemerintahan');
 Route::get('/profil/visimisi', [HomeController::class, 'profilVisiMisi'])->name('profil.visimisi');
 Route::get('/galeri', [GaleriController::class, 'index'])->name('galeri.index');
 Route::get('/galeri/{id}', [GaleriController::class, 'detail'])->name('galeri.detail');
@@ -73,6 +80,8 @@ Route::prefix('admin')->group(function () {
         ->parameters(['infografis' => 'penduduk']);
     //Route::resource('penduduk', App\Http\Controllers\PendudukController::class)->names('admin.penduduk');
     Route::resource('sotk', AdminSotkController::class)->names('admin.sotk');
+    Route::get('admin/sotk/bagan', [AdminSotkController::class, 'baganForm'])->name('admin.sotk.bagan');
+    Route::post('admin/sotk/bagan', [AdminSotkController::class, 'baganUpload'])->name('admin.sotk.bagan.upload');
     Route::resource('pengaduan', AdminPengaduanController::class)->names('admin.pengaduan');
     Route::resource('profil', App\Http\Controllers\Admin\ProfilDesaController::class)->names('admin.profil');
     Route::get('/berita/{slug}', [App\Http\Controllers\HomeController::class, 'beritaDetail'])->name('berita.detail');

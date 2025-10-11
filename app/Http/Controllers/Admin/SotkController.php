@@ -22,8 +22,17 @@ class SotkController extends Controller
     $request->validate([
       'nama' => 'required',
       'jabatan' => 'required',
+      'foto' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
+      'bagan' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
     ]);
-    Sotk::create($request->all());
+    $data = $request->except('foto', 'bagan');
+    if ($request->hasFile('foto')) {
+      $data['foto'] = $request->file('foto')->store('sotk_foto', 'public');
+    }
+    if ($request->hasFile('bagan')) {
+      $data['bagan'] = $request->file('bagan')->store('sotk_bagan', 'public');
+    }
+    Sotk::create($data);
     return redirect()->route('admin.sotk.index')->with('success', 'SOTK berhasil ditambahkan');
   }
   public function edit($id)
@@ -34,7 +43,16 @@ class SotkController extends Controller
   public function update(Request $request, $id)
   {
     $sotk = Sotk::findOrFail($id);
-    $sotk->update($request->all());
+    $request->validate([
+      'nama' => 'required',
+      'jabatan' => 'required',
+      'foto' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
+    ]);
+    $data = $request->except('foto');
+    if ($request->hasFile('foto')) {
+      $data['foto'] = $request->file('foto')->store('sotk_foto', 'public');
+    }
+    $sotk->update($data);
     return redirect()->route('admin.sotk.index')->with('success', 'SOTK berhasil diupdate');
   }
   public function destroy($id)
@@ -42,5 +60,25 @@ class SotkController extends Controller
     $sotk = Sotk::findOrFail($id);
     $sotk->delete();
     return redirect()->route('admin.sotk.index')->with('success', 'SOTK berhasil dihapus');
+  }
+  // Form upload bagan organisasi
+  public function baganForm()
+  {
+    return view('admin.sotk.bagan');
+  }
+
+  // Proses upload bagan organisasi
+  public function baganUpload(Request $request)
+  {
+    $request->validate([
+      'bagan' => 'required|image|mimes:jpg,jpeg,png,gif|max:2048',
+    ]);
+    $baganPath = $request->file('bagan')->store('sotk_bagan', 'public');
+    // Simpan path bagan ke database, misal di model Sotk dengan jabatan khusus 'Bagan'
+    \App\Models\Sotk::updateOrCreate(
+      ['jabatan' => 'Bagan'],
+      ['foto' => $baganPath, 'nama' => 'Bagan Struktur Organisasi']
+    );
+    return redirect()->route('admin.sotk.index')->with('success', 'Bagan organisasi berhasil diupload');
   }
 }
