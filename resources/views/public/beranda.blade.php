@@ -159,31 +159,46 @@
 
 
     <!-- Berita Desa Section (Revisi) -->
-    <section id="berita" class="py-20 fade-in-section">
+    <section id="berita" class="py-20 fade-in-section bg-gradient-to-b from-white to-emerald-50">
       <div class="container mx-auto px-6">
-        <div class="text-center mb-12">
+        <!-- Judul -->
+        <div class="text-center mb-14" data-aos="fade-down" data-aos-duration="800">
           <h2 class="text-3xl md:text-4xl font-bold text-slate-800">Berita & Informasi Desa</h2>
           <p class="text-lg mt-2 text-slate-600">Ikuti perkembangan dan kegiatan terbaru dari Desa Sukaraja.</p>
         </div>
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+        <!-- Grid Berita -->
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" data-aos="fade-up" data-aos-duration="900">
           @foreach($beritas as $berita)
-          <div class="bg-white rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300 group">
+          <div class="bg-white rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition-all duration-500 hover:shadow-2xl group">
             <a href="{{ route('berita.detail', $berita->slug) }}">
-              <img src="{{ $berita->gambar ? asset('storage/' . $berita->gambar) : 'https://placehold.co/600x400/60a5fa/ffffff?text=Berita' }}" class="w-full h-48 object-cover" alt="{{ $berita->judul }}">
+              <img src="{{ $berita->gambar ? asset('storage/' . $berita->gambar) : 'https://placehold.co/600x400/60a5fa/ffffff?text=Berita' }}"
+                class="w-full h-52 object-cover transition-transform duration-700 group-hover:scale-105"
+                alt="{{ $berita->judul }}">
             </a>
             <div class="p-6">
               <span class="text-sm text-slate-500">{{ $berita->created_at->format('d F Y') }}</span>
-              <h3 class="text-xl font-bold my-2 text-slate-800 group-hover:text-emerald-600 transition">{{ $berita->judul }}</h3>
+              <h3 class="text-xl font-bold my-2 text-slate-800 group-hover:text-emerald-600 transition-colors duration-300">
+                {{ $berita->judul }}
+              </h3>
               <p class="text-slate-600 mb-4 text-sm leading-relaxed">{{ \Illuminate\Support\Str::limit($berita->isi, 100) }}</p>
-              <a href="{{ route('berita.detail', $berita->slug) }}" class="font-semibold text-emerald-500 text-sm hover:text-emerald-700">Baca Selengkapnya &rarr;</a>
+              <a href="{{ route('berita.detail', $berita->slug) }}" class="font-semibold text-emerald-500 text-sm hover:text-emerald-700 transition">
+                Baca Selengkapnya &rarr;
+              </a>
             </div>
           </div>
           @endforeach
         </div>
-        <div class="flex justify-center mt-10">
-          <a href="{{ route('berita.index') }}" class="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-6 py-3 rounded-full shadow-lg transition-all group">
-            <i data-lucide="newspaper" class="w-5 h-5"></i>
-            <span>Lihat Berita Lebih Banyak</span>
+
+        <!-- Tombol Lihat Lebih Banyak -->
+        <div class="flex justify-center mt-14" data-aos="zoom-in" data-aos-delay="200">
+          <a href="{{ route('berita.index') }}"
+            class="inline-flex items-center gap-2 bg-gradient-to-r from-emerald-500 to-teal-500
+                hover:from-emerald-600 hover:to-teal-600 text-white font-semibold
+                px-6 py-3 md:px-8 md:py-3.5 rounded-full shadow-lg hover:shadow-emerald-300/50
+                transition-all duration-300 transform hover:-translate-y-1 hover:scale-[1.04] active:scale-[0.97] group">
+            <i data-lucide="newspaper" class="w-5 h-5 transition-transform duration-300 group-hover:rotate-6"></i>
+            <span class="text-sm md:text-base">Lihat Berita Lebih Banyak</span>
           </a>
         </div>
       </div>

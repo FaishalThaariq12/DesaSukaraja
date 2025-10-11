@@ -7,6 +7,12 @@
     @if($galeri->deskripsi)
     <p class="text-slate-600 text-lg mb-4">{{ $galeri->deskripsi }}</p>
     @endif
+    <div class="mt-6 flex justify-center">
+      <a href="{{ url('/#galeri') }}" class="inline-flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white font-semibold px-6 py-2 rounded-full shadow transition-all">
+        <i data-lucide="arrow-left" class="w-4 h-4"></i>
+        <span>Kembali ke Galeri</span>
+      </a>
+    </div>
   </div>
 
   @if($galeri->fotos && count($galeri->fotos))

@@ -5,12 +5,26 @@
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
 <div class="container mx-auto px-4 md:px-8 py-16">
-  <div class="max-w-5xl mx-auto text-center mb-14" data-aos="fade-up">
-    <h1 class="text-4xl font-bold text-slate-800 mb-4">Semua Berita Desa Sukaraja</h1>
-    <p class="text-slate-600 text-lg max-w-2xl mx-auto">
+  <div class="max-w-4xl mx-auto text-center mb-6" data-aos="fade-up" data-aos-delay="100">
+    <h1 class="text-3xl md:text-4xl font-bold text-slate-800 mb-3 md:mb-4">
+      Semua Berita Desa Sukaraja
+    </h1>
+    <p class="text-slate-600 text-base md:text-lg leading-relaxed max-w-2xl mx-auto">
       Menyajikan informasi terbaru tentang peristiwa, berita terkini, dan artikel-artikel jurnalistik dari Desa Sukaraja.
     </p>
   </div>
+
+  <div class="flex justify-center mb-12" data-aos="fade-up" data-aos-delay="150">
+    <a href="{{ url('/') }}"
+      class="inline-flex items-center gap-2 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white font-medium px-5 py-2.5 md:px-7 md:py-3 rounded-full shadow-md hover:shadow-lg transition-all duration-300">
+      <i data-lucide="arrow-left" class="w-4 h-4 md:w-5 md:h-5"></i>
+      <span>Kembali ke Beranda</span>
+    </a>
+  </div>
+
+
+
+
 
   <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-10">
     @forelse($beritas as $index => $berita)
