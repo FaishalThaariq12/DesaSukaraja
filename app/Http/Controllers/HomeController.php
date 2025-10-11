@@ -19,7 +19,15 @@ class HomeController extends Controller
     $sotks = \App\Models\Sotk::orderBy('created_at', 'asc')->get();
     $pengaduanCount = \App\Models\Pengaduan::count();
     $profil = \App\Models\ProfilDesa::first();
-    return view('public.beranda', compact('beritas', 'galeris', 'wisatas', 'sotks', 'pengaduanCount', 'profil'));
+    // Statistik penduduk
+    $penduduks = \App\Models\Penduduk::all();
+    $stat_penduduk = [
+      'total_penduduk' => $penduduks->sum('total_penduduk'),
+      'total_kk' => $penduduks->sum('kepala_keluarga'),
+      'total_laki' => $penduduks->sum('laki_laki'),
+      'total_perempuan' => $penduduks->sum('perempuan'),
+    ];
+    return view('public.beranda', compact('beritas', 'galeris', 'wisatas', 'sotks', 'pengaduanCount', 'profil', 'stat_penduduk'));
   }
 
   public function beritaDetail($slug)

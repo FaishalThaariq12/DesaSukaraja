@@ -33,7 +33,6 @@ Route::get('/galeri', [GaleriController::class, 'index'])->name('galeri.index');
 Route::get('/galeri/{id}', [GaleriController::class, 'detail'])->name('galeri.detail');
 Route::get('/berita', [HomeController::class, 'beritaIndex'])->name('berita.index');
 Route::get('/infografis', [InfografisController::class, 'index'])->name('infografis.index');
-Route::get('/infografis/{slug}', [InfografisController::class, 'detail'])->name('infografis.detail');
 Route::get('/sotk', [SotkController::class, 'index'])->name('sotk.index');
 Route::get('/pengaduan', [PengaduanController::class, 'index'])->name('pengaduan.index');
 Route::post('/pengaduan', [PengaduanController::class, 'store'])->name('pengaduan.store');
@@ -69,7 +68,10 @@ Route::prefix('admin')->group(function () {
     Route::resource('berita', BeritaController::class)->except(['show'])->names('admin.berita');
     Route::resource('galeri', AdminGaleriController::class)->names('admin.galeri');
     Route::resource('galeri.foto', App\Http\Controllers\Admin\FotoGaleriController::class)->shallow()->names('admin.galeri.foto');
-    Route::resource('infografis', AdminInfografisController::class)->names('admin.infografis');
+    Route::resource('infografis', App\Http\Controllers\PendudukController::class)
+        ->names('admin.infografis')
+        ->parameters(['infografis' => 'penduduk']);
+    //Route::resource('penduduk', App\Http\Controllers\PendudukController::class)->names('admin.penduduk');
     Route::resource('sotk', AdminSotkController::class)->names('admin.sotk');
     Route::resource('pengaduan', AdminPengaduanController::class)->names('admin.pengaduan');
     Route::resource('profil', App\Http\Controllers\Admin\ProfilDesaController::class)->names('admin.profil');

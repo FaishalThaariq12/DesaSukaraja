@@ -85,7 +85,7 @@
         <a href="{{ route('profil.sejarah') }}" class="nav-link text-slate-600 hover:text-emerald-600 font-medium">Profil</a>
         <a href="{{ route('berita.index') }}" class="nav-link text-slate-600 hover:text-emerald-600 font-medium">Berita</a>
         <a href="#galeri" class="nav-link text-slate-600 hover:text-emerald-600 font-medium{{ (Route::currentRouteName() == 'galeri.detail') ? ' underline decoration-emerald-500 decoration-2 underline-offset-8' : '' }}">Galeri</a>
-        <a href="#infografis" class="nav-link text-slate-600 hover:text-emerald-600 font-medium">Infografis</a>
+        <a href="{{ route('infografis.index') }}" class="nav-link text-slate-600 hover:text-emerald-600 font-medium">Infografis</a>
         <a href="#sotk" class="nav-link text-slate-600 hover:text-emerald-600 font-medium">SOTK</a>
         <a href="#peta" class="nav-link text-slate-600 hover:text-emerald-600 font-medium">Peta Desa</a>
       </nav>
@@ -105,7 +105,7 @@
       <a href="{{ route('profil.sejarah') }}" class="block py-2 text-slate-600 hover:text-emerald-600">Profil</a>
       <a href="{{ route('berita.index') }}" class="block py-2 text-slate-600 hover:text-emerald-600">Berita</a>
       <a href="#galeri" class="block py-2 text-slate-600 hover:text-emerald-600">Galeri</a>
-      <a href="#infografis" class="block py-2 text-slate-600 hover:text-emerald-600">Infografis</a>
+      <a href="{{ route('infografis.index') }}" class="block py-2 text-slate-600 hover:text-emerald-600">Infografis</a>
       <a href="#sotk" class="block py-2 text-slate-600 hover:text-emerald-600">SOTK</a>
       <a href="#peta" class="block py-2 text-slate-600 hover:text-emerald-600">Peta Desa</a>
       <a href="#pengaduan"
@@ -254,43 +254,37 @@
     <section id="infografis" class="py-20 fade-in-section">
       <div class="container mx-auto px-6">
         <div class="text-center mb-12">
-          <h2 class="text-3xl md:text-4xl font-bold text-slate-800">Infografis Administrasi Penduduk</h2>
+          <a href="{{ route('infografis.index') }}" class="group">
+            <h2 class="text-3xl md:text-4xl font-bold text-slate-800 hover:text-emerald-600 transition-colors duration-300 cursor-pointer inline-block">
+              Infografis Administrasi Penduduk
+            </h2>
+          </a>
           <p class="text-lg mt-2 text-slate-600">Data Kependudukan Desa Sukaraja (Data per September 2025)</p>
         </div>
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           <!-- Data Card 1 -->
           <div class="bg-white rounded-xl shadow-lg p-8 text-center transform hover:-translate-y-2 transition-transform duration-300">
             <i data-lucide="users" class="w-16 h-16 mx-auto text-emerald-500 mb-4"></i>
-            <h3 class="text-5xl font-extrabold text-slate-800">4,782</h3>
+            <h3 class="text-5xl font-extrabold text-slate-800">{{ number_format($stat_penduduk['total_penduduk']) }}</h3>
             <p class="text-slate-600 mt-2 font-semibold text-lg">Total Penduduk</p>
           </div>
           <!-- Data Card 2 -->
           <div class="bg-white rounded-xl shadow-lg p-8 text-center transform hover:-translate-y-2 transition-transform duration-300">
             <i data-lucide="home" class="w-16 h-16 mx-auto text-sky-500 mb-4"></i>
-            <h3 class="text-5xl font-extrabold text-slate-800">1,520</h3>
+            <h3 class="text-5xl font-extrabold text-slate-800">{{ number_format($stat_penduduk['total_kk']) }}</h3>
             <p class="text-slate-600 mt-2 font-semibold text-lg">Total Kartu Keluarga</p>
           </div>
           <!-- Data Card 3 -->
           <div class="bg-white rounded-xl shadow-lg p-8 text-center transform hover:-translate-y-2 transition-transform duration-300">
             <div class="flex justify-center items-center space-x-4">
               <i data-lucide="male" class="w-10 h-10 text-blue-500"></i>
-              <span class="text-3xl font-bold text-slate-800">2,400</span>
+              <span class="text-3xl font-bold text-slate-800">{{ number_format($stat_penduduk['total_laki']) }}</span>
               <span class="text-slate-600">Laki-laki</span>
             </div>
             <div class="flex justify-center items-center space-x-4 mt-4">
               <i data-lucide="female" class="w-10 h-10 text-pink-500"></i>
-              <span class="text-3xl font-bold text-slate-800">2,382</span>
+              <span class="text-3xl font-bold text-slate-800">{{ number_format($stat_penduduk['total_perempuan']) }}</span>
               <span class="text-slate-600">Perempuan</span>
-            </div>
-            <div class="mt-4 grid grid-cols-2 gap-4">
-              <div class="bg-emerald-50 rounded-lg p-2">
-                <span class="block text-xs text-slate-500">Usia Produktif</span>
-                <span class="block text-lg font-bold text-slate-800">3,100</span>
-              </div>
-              <div class="bg-sky-50 rounded-lg p-2">
-                <span class="block text-xs text-slate-500">Usia Non Produktif</span>
-                <span class="block text-lg font-bold text-slate-800">1,682</span>
-              </div>
             </div>
           </div>
         </div>

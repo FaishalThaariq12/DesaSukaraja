@@ -11,14 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('wisatas', function (Blueprint $table) {
+        Schema::create('penduduks', function (Blueprint $table) {
             $table->id();
-            $table->string('nama');
-            $table->string('slug')->unique();
-            $table->text('deskripsi')->nullable();
-            $table->string('gambar')->nullable();
-            $table->string('lokasi')->nullable();
-            $table->text('fasilitas')->nullable();
+            $table->string('dusun'); // Nama dusun/kampung
+            $table->integer('total_penduduk')->default(0);
+            $table->integer('laki_laki')->default(0);
+            $table->integer('perempuan')->default(0);
+            $table->integer('kepala_keluarga')->default(0);
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('wisatas');
+        Schema::dropIfExists('penduduks');
     }
 };

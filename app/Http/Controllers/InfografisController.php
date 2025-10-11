@@ -3,19 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Infografis;
+use App\Models\Penduduk;
 
 class InfografisController extends Controller
 {
   public function index()
   {
-    $infografis = Infografis::latest()->paginate(10);
-    return view('public.infografis.index', compact('infografis'));
-  }
-
-  public function detail($slug)
-  {
-    $infografis = Infografis::where('slug', $slug)->firstOrFail();
-    return view('public.infografis.detail', compact('infografis'));
+    // Ambil semua data penduduk per dusun, urutkan nama dusun
+    $data = Penduduk::orderBy('dusun')->get();
+    return view('public.infografis.index', compact('data'));
   }
 }
